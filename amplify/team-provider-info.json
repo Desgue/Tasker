@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tasker-dev-124334-authRole",
+      "UnauthRoleArn": "arn:aws:iam::834198428289:role/amplify-tasker-dev-124334-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::834198428289:role/amplify-tasker-dev-124334-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-tasker-dev-124334-deployment",
+      "UnauthRoleName": "amplify-tasker-dev-124334-unauthRole",
+      "StackName": "amplify-tasker-dev-124334",
+      "StackId": "arn:aws:cloudformation:eu-west-2:834198428289:stack/amplify-tasker-dev-124334/ac98b7e0-c67f-11ee-8637-06590e209fe9",
+      "AmplifyAppId": "d1u8ovfdpe5wt5"
+    },
+    "categories": {
+      "auth": {
+        "taskerfc76411c": {
+          "userPoolId": "eu-west-2_IBRP7E16S",
+          "userPoolName": "taskerfrontend0a04f02c_userpool_0a04f02c-dev",
+          "webClientId": "74l1pq42p2o60cbkughkf8q9v8",
+          "nativeClientId": "18c5j0tmm6ugtc6trtcj552ed8"
+        }
+      }
+    }
+  }
+}
