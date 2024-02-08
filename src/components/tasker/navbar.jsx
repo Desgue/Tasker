@@ -33,7 +33,7 @@ const LoggedOut = () => {
       </header>
     )
   }
-  const LoggedIn = () => {
+  const LoggedIn = ({signOut}) => {
     return(
       <header className='flex fixed w-full bg-white h-12 z-40 justify-between border  '>
         <div className='mt-2 ml-12'>
@@ -54,8 +54,10 @@ const LoggedOut = () => {
             <p className='font-medium text-[#6200EE]'>Profile</p>
           </Link>
   
-          <Link to='/login'>
-              <p className='font-medium text-[#6200EE]'>Logout</p>
+          <Link to='/' >
+              <button onClick={signOut}> 
+                <p className='font-medium text-[#6200EE]'>Logout</p>
+              </button>
           </Link>
           
         </div>
@@ -64,11 +66,11 @@ const LoggedOut = () => {
   }
   const Navbar = () => {
     const {authStatus} = useAuthenticator(context => [context.authStatus]);
+    const {signOut} = useAuthenticator(context => [context.signOut]);
     console.log(authStatus)
     return (
       <>
-        {authStatus === 'authenticated' ? <LoggedIn/> : <LoggedOut/>}
-  
+        {authStatus === 'authenticated' ? <LoggedIn signOut={signOut}/> : <LoggedOut/>}
       </>
     )
   }

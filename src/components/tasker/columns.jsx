@@ -46,8 +46,8 @@ import {
 
 
 
-const deleteProject = async (id) => {
-    const url = `http://localhost:8000/projects/${id}`
+const deleteProject = async (projectId) => {
+    const url = `http://localhost:8000/users/${userId}/projects/${id}`
     const response = await fetch(url, {
       method: 'DELETE',
       headers: {
@@ -96,14 +96,14 @@ export const columns = [
         cell: ({row}) => {
             const project = row.original
             return (
-                <DropdownMenu>
+                <DropdownMenu className="">
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
                       <span className="sr-only">Open menu</span>
                       <MoreHorizontal className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent className="bg-white" align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
                     <DialogItem triggerChildren="Edit">
@@ -147,7 +147,7 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
           <DropdownMenuItem
             {...itemProps}
             ref={forwardedRef}
-            className="DropdownMenuItem"
+            className="DropdownMenuItem   cursor-pointer"
             onSelect={(event) => {
               event.preventDefault();
               onSelect && onSelect();
@@ -167,25 +167,7 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
 
   const EditForm = ({project}) => {
       const context = React.useContext(openContext)
-      
-      const router = useRouter()
-      const editProject =  async (data) => {
-        console.log('Editing project with id: ', project.id)
-        const url = `http://localhost:8000/projects/${project.id}`
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        if (response.ok ){
-            console.log(`Project with id: ${project.id} has been edited`)
-        }
-        context.setOpen(false)
-        router.push("/projects")
-        router.refresh()
-    }
+
     const formSchema = z.object({
         title: z.string().min(2, {
             message: 'Title must be at least 2 characters long'

@@ -38,20 +38,22 @@ const getProjects = async(userId) => {
   }
 
 
+  export const openContext = React.createContext() 
 
 const NewProjectDialog = ({ userId}) => {
+  const [open, setOpen] = React.useState()
   return (
-  <Dialog className="rounded-xl" >
+  <Dialog open={open} >
     <DialogTrigger asChild>
         <Button className='mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]'>New project</Button>
     </DialogTrigger>
     <DialogContent className="bg-white">
       <DialogHeader>
         <DialogTitle>Create project</DialogTitle>
-          <NewProjectForm  userId = {userId}/>
-        <DialogDescription>
-        </DialogDescription>
       </DialogHeader>
+        <openContext.Provider value={{setOpen}}>
+          <NewProjectForm  userId = {userId}/>
+        </openContext.Provider>
     </DialogContent>
 </Dialog>
   )
@@ -61,11 +63,16 @@ const ProjectsPage =  () => {
     const { user, signOut } = useAuthenticator(context => [context.user])
 
     const [projects, setProjects] = React.useState([])
-    React.useEffect(() => {
+    React.useEffect(  () => {
       if (user) {
-        getProjects(user.userId).then((data) => setProjects(data))
-
-      }
+        getProjects(user.userId).then((data) => {
+          setProjects(data.map((project) => {
+              return {...project, 
+                createdAt: new Date(project.createdAt).toLocaleString(), }
+          })
+          )
+        })
+    }
     }, [user])
     
     

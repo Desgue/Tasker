@@ -1,3 +1,4 @@
+import React from "react"
 import {  z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -20,6 +21,7 @@ import {
   } from "@/components/ui/select"
   import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { openContext } from "../../pages/projects"
 
   const formSchema = z.object({
     title: z.string().min(2, {
@@ -48,6 +50,7 @@ import { Button } from "@/components/ui/button"
 
 
 const NewProjectForm = ({userId}) => {  
+    const context = React.useContext(openContext)
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -61,7 +64,12 @@ const NewProjectForm = ({userId}) => {
     return (
     
     <Form {...form}>
-            <form onSubmit={form.handleSubmit(data => submitHandler(data, userId))}>
+            <form onSubmit={form.handleSubmit(data =>{ 
+                submitHandler(data, userId); 
+                context.setOpen(false); 
+                window.location.reload()
+            }
+            )}>
                 <FormField name="title" control={form.conrtrol} render={({field}) => (
                      <FormItem >
                         <FormLabel>Title</FormLabel>
@@ -88,9 +96,9 @@ const NewProjectForm = ({userId}) => {
                                     </SelectTrigger>
                                 </FormControl>
                             <SelectContent className="bg-white" >
-                                <SelectItem  value="Low">Low</SelectItem>
-                                <SelectItem value="Medium">Medium</SelectItem>  
-                                <SelectItem value="High">High</SelectItem>
+                                <SelectItem className="cursor-pointer " value="Low">Low</SelectItem>
+                                <SelectItem  className="cursor-pointer" value="Medium">Medium</SelectItem>  
+                                <SelectItem className="cursor-pointer" value="High">High</SelectItem>
                             </SelectContent>
                         </Select>
                         <FormDescription>Select the priority status of the task</FormDescription>
