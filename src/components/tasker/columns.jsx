@@ -3,8 +3,7 @@ import * as React from "react";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import {useRouter} from "next/navigation";
-import Link from "next/link"
+import {Link} from 'react-router-dom'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -126,7 +125,7 @@ export const columns = [
 
                     <DropdownMenuSeparator />
                     <DropdownMenuItem >
-                        <Link href={`/projects/${project.id}/tasks`}>
+                        <Link to={`/projects/${project.id}/tasks`}>
                         Open Tasks
                         </Link>
                     </DropdownMenuItem>
