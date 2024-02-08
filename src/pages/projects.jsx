@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button} from '@/components/ui/button';
 import { Amplify } from 'aws-amplify';
-import { Authenticator,useAuthenticator  } from '@aws-amplify/ui-react';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import awsExports from '../aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import { DataTable } from '../components/tasker/projectTable';
@@ -19,8 +19,9 @@ Amplify.configure(awsExports);
 
 
 
-const getProjects = async() => {
-    const url = `http://localhost:8000/projects`
+const getProjects = async(userId) => {
+    const url = `http://localhost:8000/users/${userId}/projects`
+    console.log(userId)
     const response = await fetch(url, {
       next: {
         revalidate: 60
@@ -36,17 +37,19 @@ const getProjects = async() => {
     return data
   }
 
-const NewProjectDialog = () => {
+
+
+const NewProjectDialog = ({ userId}) => {
   return (
   <Dialog className="rounded-xl" >
-    <DialogTrigger>
-        <Button className='mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]'>Create new project</Button>
+    <DialogTrigger asChild>
+        <Button className='mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]'>New project</Button>
     </DialogTrigger>
     <DialogContent className="bg-white">
       <DialogHeader>
-        <DialogTitle>Create new project</DialogTitle>
+        <DialogTitle>Create project</DialogTitle>
+          <NewProjectForm  userId = {userId}/>
         <DialogDescription>
-          <NewProjectForm />
         </DialogDescription>
       </DialogHeader>
     </DialogContent>
@@ -54,11 +57,16 @@ const NewProjectDialog = () => {
   )
 }
 
-const ProjectsPage = () => {
+const ProjectsPage =  () => {
+    const { user, signOut } = useAuthenticator(context => [context.user])
+
     const [projects, setProjects] = React.useState([])
     React.useEffect(() => {
-        getProjects().then((data) => setProjects(data))
-    }, [])
+      if (user) {
+        getProjects(user.userId).then((data) => setProjects(data))
+
+      }
+    }, [user])
     
     
   return (
@@ -76,8 +84,7 @@ const ProjectsPage = () => {
                         <div className='container bg-white mx-auto mt-12 py-10  border rounded-lg shadow-xl'>
                         <div className='flex justify-between'>
                             <h1 className='text-3xl pb-4 font-bold text-left'>Projects</h1>
-                            <NewProjectDialog/>
-                            
+                            <NewProjectDialog  userId = {user.userId}/>
                         </div>
                           <label className=' text-left'>List of projects</label>
                           <DataTable columns={columns} data={projects}/>

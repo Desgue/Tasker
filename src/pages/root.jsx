@@ -15,7 +15,7 @@ function RootPage() {
             Manage your projects and task from anywhere, perfect for personal projects, solo developers or small teams 
            </p>
           <div className='flex justify-center pt-12'>
-            <Link href='/login'>
+            <Link to='/profile'>
               <Button className='scroll-m-20 rounded-[8px]   px-8 py-3 text-lg font-semibold text-white bg-[#6200EE]  hover:bg-[#5a00da]'>Get Started</Button>
             </Link>
           </div>

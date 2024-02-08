@@ -31,8 +31,23 @@ import { Button } from "@/components/ui/button"
     priority: z.enum(['Low', 'Medium', 'High'], {required_error: 'Priority status required'})
   })
 
-const NewProjectForm = () => { 
-    
+  const createProject = async (data, userId) => {
+    const url = `http://localhost:8000/users/${userId}/projects`
+    data.userCognitoId = userId
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    const result = await response.json()
+    console.log(data)
+    return result
+  }
+
+
+const NewProjectForm = ({userId}) => {  
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -41,14 +56,12 @@ const NewProjectForm = () => {
             priority: `Low`
         }
     })
-    const submitHandler = (data) => {
-        console.log(data)
-    }
+    const submitHandler = createProject;
     
     return (
     
     <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitHandler)}>
+            <form onSubmit={form.handleSubmit(data => submitHandler(data, userId))}>
                 <FormField name="title" control={form.conrtrol} render={({field}) => (
                      <FormItem >
                         <FormLabel>Title</FormLabel>
@@ -65,7 +78,7 @@ const NewProjectForm = () => {
                         </FormControl>
                      </FormItem>  
                 )} />
-                <FormField name="status" control={form.control} render={({field}) => (
+                <FormField name="priority" control={form.control} render={({field}) => (
                     <FormItem >
                         <FormLabel>Status</FormLabel>
                             <Select  className="hover:bg-black" onValueChange={field.onChange} defaultValue={field.value}>
