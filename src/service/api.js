@@ -1,8 +1,13 @@
 
 // Projects
+const isProd = import.meta.env.PROD
+const apiURL = isProd ?  'http://ttracker-api-production.up.railway.app' : 'http://localhost:8000'
+const prodUrl = "https://ttracker-api-production.up.railway.app"
+const devUrl = "http://localhost:8000"
 
 export const getProjects = async(token) => {
-	const url = `http://localhost:8000/projects`
+	const url = prodUrl+'/projects'
+	console.log(url)
 	const response = await fetch(url, {
 	  next: {
 		revalidate: 60
@@ -21,7 +26,7 @@ export const getProjects = async(token) => {
   }
 
 export const createProject = async (data, token) => {
-    const url = `http://localhost:8000/projects`
+    const url = prodUrl+"/projects"
 	try{
 
 		const response = await fetch(url, {
@@ -34,6 +39,7 @@ export const createProject = async (data, token) => {
 			body: JSON.stringify(data)
 		})
 		const result = await response.json()
+		console.log("Created project")
 		return result
 	}
 	catch{
@@ -43,7 +49,7 @@ export const createProject = async (data, token) => {
   }
 
 export const deleteProject = async (projectId, token) => {
-    const url = `http://localhost:8000/projects/${projectId}`
+    const url = prodUrl+'/projects/'+projectId
 	try{
 
 		const response = await fetch(url, {
@@ -66,7 +72,7 @@ export const deleteProject = async (projectId, token) => {
 }
 
 export const editProject = async (data, projectId, token) => {
-	const url = `http://localhost:8000/projects/${projectId}`
+	const url = prodUrl+'/projects/'+projectId
 	try{
 		const response = await fetch(url, {
 			method: 'PUT',
