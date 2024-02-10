@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import NewTaskForm from "@/components/tasker/newTaskForm"
+import NewTaskForm from "./createModal"
 
 const BoardSider = () => {
     const [showAddForm, setShowAddForm] = useState(false)

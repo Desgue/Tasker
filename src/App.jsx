@@ -1,11 +1,11 @@
-import RootPage from './pages/root'
 import { Route, Routes} from 'react-router-dom';
-import ProjectsPage from './pages/projects';
-import ProfilePage from './pages/profile';
-import TasksPage from './pages/tasks';
-import Navbar from './components/tasker/navbar';
+import RootPage from './pages/home/root'
+import ProjectsPage from './pages/projects/ProjectsPage';
+import ProfilePage from './pages/profile/profile';
+import TasksPage from './pages/tasks/TasksPage';
+import Navbar from './components/layout/navbar';
+import LoginPage from './pages/login/login';
 import { Authenticator, View } from '@aws-amplify/ui-react';
-import LoginPage from './pages/login';
 function App() {
 
   return ( 

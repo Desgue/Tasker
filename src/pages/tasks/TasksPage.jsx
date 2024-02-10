@@ -1,6 +1,6 @@
 import React from 'react'
-import Board from '@/components/tasker/board'
-import BoardSider from '../components/tasker/boardSider'
+import Board from "./board"
+import BoardSider from './boardSider'
 
 const getTasks = async (projectId) => {
   const url = `http://localhost:8000/projects/${projectId}/tasks`

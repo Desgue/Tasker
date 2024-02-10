@@ -1,8 +1,8 @@
 import React, { useEffect, useState} from 'react'
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import {Button} from "@/components/ui/button"
-import EditTaskModal from './editTaskModal'
-import DeletePopup from './deletePopup'
+import EditTaskModal from './editModal'
+import DeletePopup from './deleteModal'
 
 
 

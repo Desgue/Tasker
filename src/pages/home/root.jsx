@@ -1,11 +1,9 @@
-import Home from '../components/tasker/home';
+import Home from "./home"
 function RootPage() {
   
 
   return (
-
     <Home/>
-
     );
 }
 

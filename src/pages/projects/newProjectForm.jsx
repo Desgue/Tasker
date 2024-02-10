@@ -1,7 +1,4 @@
 import React from "react"
-import {  z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import {
     Form,
     FormControl,
@@ -11,19 +8,26 @@ import {
     FormLabel,
     FormMessage,
   } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
-  import { Textarea } from "@/components/ui/textarea"
+      Select,
+      SelectContent,
+      SelectItem,
+      SelectTrigger,
+      SelectValue,
+    } from "@/components/ui/select"
+import { DialogClose } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { openContext } from "../../pages/projects"
+import {  z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { createProject } from "../../service/api"
+import { TokenContext } from "./ProjectsPage"
+import { newProjectCtx } from "./ProjectsPage"
 
-  const formSchema = z.object({
+
+const formSchema = z.object({
     title: z.string().min(2, {
         message: 'Title must be at least 2 characters long'
     }).max(50),
@@ -33,24 +37,10 @@ import { openContext } from "../../pages/projects"
     priority: z.enum(['Low', 'Medium', 'High'], {required_error: 'Priority status required'})
   })
 
-  const createProject = async (data, userId) => {
-    const url = `http://localhost:8000/users/${userId}/projects`
-    data.userCognitoId = userId
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
-    const result = await response.json()
-    console.log(data)
-    return result
-  }
 
-
-const NewProjectForm = ({userId}) => {  
-    const context = React.useContext(openContext)
+const NewProjectForm =  () => {  
+    const token = React.useContext(TokenContext)
+    const context = React.useContext(newProjectCtx)
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -59,15 +49,17 @@ const NewProjectForm = ({userId}) => {
             priority: `Low`
         }
     })
-    const submitHandler = createProject;
     
     return (
     
     <Form {...form}>
             <form onSubmit={form.handleSubmit(data =>{ 
-                submitHandler(data, userId); 
-                context.setOpen(false); 
-                window.location.reload()
+                createProject(data, token)
+                .then((resp) => {
+                    console.log(resp);
+                    context.setOpen(false);
+                    window.location.reload();
+                })
             }
             )}>
                 <FormField name="title" control={form.conrtrol} render={({field}) => (
@@ -106,7 +98,10 @@ const NewProjectForm = ({userId}) => {
                     </FormItem>  
                 )} />
                 <div className='flex justify-between'>
-                    <Button  type="submit" className="bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2] p-4 mt-2" variant="secondary">Edit</Button>
+                <DialogClose asChild>
+                    <Button type="button " className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2] p-4 mt-2">Cancel</Button>
+                </DialogClose>
+                    <Button  type="submit" className="bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2] p-4 mt-2" variant="secondary">Create</Button>
                 </div>
                 </form>
                  

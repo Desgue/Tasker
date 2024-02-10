@@ -16,8 +16,19 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
+import { getProjects } from "../../service/api"
+import { TokenContext } from "./ProjectsPage"
 
-export function DataTable({columns, data}) {
+export  function DataTable({columns}) {
+    const token = React.useContext(TokenContext)
+    const [data, setData] = React.useState([])
+    React.useEffect(() => {
+      async function fetchProjects() {
+        setData(await getProjects(token))
+      }
+      fetchProjects()
+    }, [])
+
     const [sorting, setSorting] = React.useState([])
     const [columnFilters, setColumnFilters] = React.useState([])
     const table = useReactTable({

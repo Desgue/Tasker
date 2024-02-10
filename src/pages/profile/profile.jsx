@@ -1,6 +1,6 @@
 import React from 'react'
 import {Authenticator} from '@aws-amplify/ui-react';
-import {Button} from '../components/ui/button';
+import {Button} from '../../components/ui/button';
 
 const ProfilePage = () => {
 

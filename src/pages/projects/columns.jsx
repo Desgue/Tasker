@@ -1,9 +1,9 @@
 
 import * as React from "react";
+import {Link} from 'react-router-dom'
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import {Link} from 'react-router-dom'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,10 +23,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-  import { set, z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import {
+  import {
     Form,
     FormControl,
     FormDescription,
@@ -43,22 +40,15 @@ import {
     SelectValue,
   } from "@/components/ui/select"
   import { Textarea } from "@/components/ui/textarea"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { deleteProject, editProject } from "../../service/api"
+import { TokenContext } from "./ProjectsPage";
 
+  
+const openContext = React.createContext()
 
-
-const deleteProject = async (projectId) => {
-    const url = `http://localhost:8000/users/${userId}/projects/${id}`
-    const response = await fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    if (response.ok ){
-        console.log(`Project with id: ${id} has been deleted`)
-        }
-
-}
 
 export const columns = [
     {
@@ -94,6 +84,8 @@ export const columns = [
         
         id: 'actions',
         cell: ({row}) => {
+            const token = React.useContext(TokenContext)
+            
             const project = row.original
             return (
                 <DropdownMenu className="">
@@ -108,18 +100,18 @@ export const columns = [
 
                     <DialogItem triggerChildren="Edit">
                       <DialogTitle >Edit</DialogTitle>
-                       <EditForm project = {project} />  
+                       <EditForm project = {project} token={token}/>  
                     </DialogItem>
 
-                    <DialogItem triggerChildren="Delete">
+                    <DialogItem  triggerChildren="Delete">
                       <DialogTitle >Delete</DialogTitle>
                       <DialogDescription >
                         Deleting this project will also delete all the tasks associated with it. Are you sure you want to delete it?
                       </DialogDescription>
                       <DialogFooter>
-                        <DialogClose asChild>
-                          <Button onClick={() => deleteProject(project.id)} variant="">Delete</Button>
-                        </DialogClose>
+                        {/* <DialogClose asChild>
+                        </DialogClose> */}
+                          <DeleteBtn project = {project} token={token}/>
                       </DialogFooter>
                     </DialogItem>
 
@@ -137,7 +129,23 @@ export const columns = [
     
     
 ]
-const openContext = React.createContext()
+const DeleteBtn = ({project, token}) => {
+  const context = React.useContext(openContext)
+  return (
+    <Button onClick={() =>{ 
+      deleteProject(project.id, token)
+      .then(() => {
+        console.log('Project deleted');
+        context.setOpen(false);
+        window.location.reload();
+        })
+      }} 
+        variant="secondary">
+          Delete
+    </Button>
+  )
+    }
+
 const DialogItem = React.forwardRef((props, forwardedRef) => {
   const [open, setOpen] = React.useState()
     const { triggerChildren, children, onSelect, onOpenChange, ...itemProps } = props;
@@ -156,7 +164,7 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
             {triggerChildren}
           </DropdownMenuItem>
         </DialogTrigger>
-          <DialogContent >
+          <DialogContent className="bg-white">
             <openContext.Provider value={{setOpen}}>
               {children}
             </openContext.Provider>
@@ -165,8 +173,8 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
     );
   });
 
-  const EditForm = ({project}) => {
-      const context = React.useContext(openContext)
+  const EditForm = ({project, token}) => {
+    const context = React.useContext(openContext)
 
     const formSchema = z.object({
         title: z.string().min(2, {
@@ -187,7 +195,8 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
     })
     return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(editProject)}>
+        <form onSubmit={form.handleSubmit(console.log("edit")
+            )}>
             <FormField name="title" control={form.conrtrol} render={({field}) => (
                  <FormItem >
                     <FormLabel>Title</FormLabel>
@@ -213,21 +222,21 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
                                     <SelectValue  />
                                 </SelectTrigger>
                             </FormControl>
-                        <SelectContent>
-                            <SelectItem value="Low">Low</SelectItem>
-                            <SelectItem value="Medium">Medium</SelectItem>  
-                            <SelectItem value="High">High</SelectItem>
+                        <SelectContent className="bg-white ">
+                            <SelectItem className="cursor-pointer bg-slate-50" value="Low">Low</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Medium">Medium</SelectItem>  
+                            <SelectItem className="cursor-pointer" value="High">High</SelectItem>
                         </SelectContent>
                     </Select>
                     <FormDescription>Select the priority status</FormDescription>
                     <FormMessage>{form.formState.errors.status?.message}</FormMessage>
                 </FormItem>  
             )} />
-                <div className="flex justify-between">
+                <div className="flex justify-between pt-4">
                 <DialogClose asChild>
-                    <Button type="button" variant="secondary">Cancel</Button>
+                    <Button type="button " className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2]">Cancel</Button>
                 </DialogClose>
-                    <Button  type="submit" variant="">Edit</Button>
+                    <Button  className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2]" type="submit" >Edit</Button>
                 </div>
             </form>          
     </Form>
