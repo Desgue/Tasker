@@ -84,8 +84,6 @@ export const columns = [
         
         id: 'actions',
         cell: ({row}) => {
-            const token = React.useContext(TokenContext)
-            
             const project = row.original
             return (
                 <DropdownMenu className="">
@@ -100,7 +98,7 @@ export const columns = [
 
                     <DialogItem triggerChildren="Edit">
                       <DialogTitle >Edit</DialogTitle>
-                       <EditForm project = {project} token={token}/>  
+                       <EditForm project = {project}/>  
                     </DialogItem>
 
                     <DialogItem  triggerChildren="Delete">
@@ -109,9 +107,7 @@ export const columns = [
                         Deleting this project will also delete all the tasks associated with it. Are you sure you want to delete it?
                       </DialogDescription>
                       <DialogFooter>
-                        {/* <DialogClose asChild>
-                        </DialogClose> */}
-                          <DeleteBtn project = {project} token={token}/>
+                          <DeleteBtn project = {project} />
                       </DialogFooter>
                     </DialogItem>
 
@@ -129,8 +125,9 @@ export const columns = [
     
     
 ]
-const DeleteBtn = ({project, token}) => {
+const DeleteBtn = ({project}) => {
   const context = React.useContext(openContext)
+  const token = React.useContext(TokenContext)
   return (
     <Button onClick={() =>{ 
       deleteProject(project.id, token)
@@ -173,9 +170,9 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
     );
   });
 
-  const EditForm = ({project, token}) => {
+  const EditForm = ({project}) => {
     const context = React.useContext(openContext)
-
+    const token   = React.useContext(TokenContext)
     const formSchema = z.object({
         title: z.string().min(2, {
             message: 'Title must be at least 2 characters long'
@@ -193,10 +190,17 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
             priority: project.priority
         }
     })
+    const onSubmit = (data) => {
+      editProject( data, project.id, token)
+      .then(() => {
+        console.log('Project edited');
+        context.setOpen(false);
+        window.location.reload();
+      })
+    }
     return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(console.log("edit")
-            )}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField name="title" control={form.conrtrol} render={({field}) => (
                  <FormItem >
                     <FormLabel>Title</FormLabel>
@@ -236,7 +240,7 @@ const DialogItem = React.forwardRef((props, forwardedRef) => {
                 <DialogClose asChild>
                     <Button type="button " className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2]">Cancel</Button>
                 </DialogClose>
-                    <Button  className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2]" type="submit" >Edit</Button>
+                    <Button type="submit"  className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2]"  >Edit</Button>
                 </div>
             </form>          
     </Form>

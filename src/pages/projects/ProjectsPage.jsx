@@ -15,7 +15,7 @@ import awsExports from '../../aws-exports';
 import NewProjectForm from './newProjectForm';
 import {columns} from './columns';
 import { DataTable } from './projectTable';
-import { set } from 'react-hook-form';
+
 
 
 

@@ -22,9 +22,14 @@ import { TokenContext } from "./ProjectsPage"
 export  function DataTable({columns}) {
     const token = React.useContext(TokenContext)
     const [data, setData] = React.useState([])
+    
     React.useEffect(() => {
       async function fetchProjects() {
-        setData(await getProjects(token))
+        const projects = await getProjects(token)
+        projects.forEach((project) => {
+          project.createdAt = new Date(project.createdAt).toLocaleString()
+        })
+        setData(projects)
       }
       fetchProjects()
     }, [])
