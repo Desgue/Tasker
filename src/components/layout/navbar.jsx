@@ -26,7 +26,7 @@ const LoggedOut = () => {
   const LoggedIn = () => {
     
     return(
-      <header className='flex  fixed w-full bg-white h-12 z-40 justify-between border  '>
+      <header className='flex w-full bg-white h-12 z-40 justify-between border  '>
         <div className='mt-2 ml-12'>
           <Link to='/'>
             <p className='text-2xl font-extrabold tracking-tigh text-[#6200EE]'>Tasker</p>
