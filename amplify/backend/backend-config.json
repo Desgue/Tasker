@@ -1,6 +1,6 @@
 {
   "auth": {
-    "taskerfc76411c": {
+    "tasker": {
       "customAuth": false,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",

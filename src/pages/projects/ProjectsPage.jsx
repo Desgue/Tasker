@@ -9,15 +9,12 @@ import {
 } from "@/components/ui/dialog"
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { Authenticator } from '@aws-amplify/ui-react';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import awsExports from '../../aws-exports';
 import NewProjectForm from './newProjectForm';
 import {columns} from './columns';
 import { DataTable } from './projectTable';
-
-
-
 
 
 Amplify.configure(awsExports);

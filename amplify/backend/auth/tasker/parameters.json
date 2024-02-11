@@ -1,6 +1,6 @@
 {
-  "authSelections": "userPoolOnly",
-  "resourceName": "taskerfc76411c",
+  "authSelections": "identityPoolAndUserPool",
+  "resourceName": "tasker",
   "serviceType": "imported",
   "region": "eu-west-2",
   "authProvidersUserPool": [

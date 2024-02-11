@@ -21,5 +21,28 @@
         }
       }
     }
+  },
+  "production": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tasker-production-11522-authRole",
+      "UnauthRoleArn": "arn:aws:iam::834198428289:role/amplify-tasker-production-11522-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::834198428289:role/amplify-tasker-production-11522-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-tasker-production-11522-deployment",
+      "UnauthRoleName": "amplify-tasker-production-11522-unauthRole",
+      "StackName": "amplify-tasker-production-11522",
+      "StackId": "arn:aws:cloudformation:eu-west-2:834198428289:stack/amplify-tasker-production-11522/08708af0-c87b-11ee-ab04-066993bb7f35",
+      "AmplifyAppId": "d3ozduy4s4mqlc"
+    },
+    "categories": {
+      "auth": {
+        "taskerfc76411c": {
+          "userPoolId": "eu-west-2_IBRP7E16S",
+          "userPoolName": "taskerfrontend0a04f02c_userpool_0a04f02c-dev",
+          "webClientId": "74l1pq42p2o60cbkughkf8q9v8",
+          "nativeClientId": "18c5j0tmm6ugtc6trtcj552ed8"
+        }
+      }
+    }
   }
 }
