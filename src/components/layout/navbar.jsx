@@ -39,11 +39,10 @@ const LoggedOut = () => {
       </header>
     )
   }
-  const Navbar = () => {
-    const {authStatus} = useAuthenticator(context => [context.authStatus]);
+  const Navbar = ({isLogged}) => {
     return (
       <>
-        {authStatus === 'authenticated' ? <LoggedIn/> : <LoggedOut/>}
+        {isLogged ? <LoggedIn/> : <LoggedOut/>}
       </>
     )
   }

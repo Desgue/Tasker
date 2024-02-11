@@ -1,17 +1,42 @@
 import React from 'react'
-import {Authenticator} from '@aws-amplify/ui-react';
+import {Authenticator, useAuthenticator} from '@aws-amplify/ui-react';
 import {Button} from '../../components/ui/button';
 import { Separator } from "@/components/ui/separator"
 import EditProfileForm from './editProfileForm';
 import ChangePasswordForm from './ChangePasswordForm';
+import { fetchUserAttributes } from 'aws-amplify/auth';
+import { redirect } from 'react-router-dom';
+
+async function handleFetchUserAttributes() {
+  try {
+    const userAttributes = await fetchUserAttributes();
+    console.log(userAttributes);
+    return userAttributes;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 
 const ProfilePage = () => {
+  const {user} = useAuthenticator(context => [context.user]);
+  console.log(user);
+  const [userAttributes, setUserAttributes] = React.useState(null);
 
-  return ( <> 
-  <Authenticator className='pt-36 xl:pt-56 '>
-    {({signOut, user}) => {
-      if (user) {
+  React.useEffect(() => {
+    handleFetchUserAttributes()
+    .then((attributes) => {
+      setUserAttributes(attributes);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+  , [])
+
+
+      if (user && userAttributes) {
         return (
           <>
             <div className=' pl-[40px] pr-16 pt-[26px] pb-[26px] mb-6'>
@@ -19,7 +44,7 @@ const ProfilePage = () => {
                 <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="avatar" className="mt-4 mr-2 w-12 h-12 rounded-full " />
                 <div className='flex flex-col'>
                   <p className='text-xl font-medium pt-4'>{user.username}</p>
-                  <p className='text-sm font-medium'>somemeail@email.com</p>
+                  <p className='text-sm font-medium'>{userAttributes.email}</p>
                 </div>
               </div>
             </div>
@@ -35,7 +60,7 @@ const ProfilePage = () => {
                 <Separator className="mt-4"/>
                 <div className="pt-8">
                   <h3 className="text-xl font-bold pb-2">Edit Profile</h3>
-                  <EditProfileForm className=""/>
+                  <EditProfileForm user={user} attributes={userAttributes}/>
                 </div>
                 <div className="pt-16">
                   <h2 className="text-xl font-bold pb-2">Edit Password</h2>
@@ -46,10 +71,11 @@ const ProfilePage = () => {
           </>
          );
        }
-     }
-   }
-  </Authenticator> </>
-  )
-}
+       redirect('/login')
+      }
+     
+
+  
+
 
 export default ProfilePage

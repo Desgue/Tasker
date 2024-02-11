@@ -13,18 +13,20 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+
  
 const formSchema = z.object({
     username: z.string().min(2).max(50),
     email: z.string().email(),
 })
 
-const EditProfileForm = ({className}) => {
+const EditProfileForm = ({className, user, attributes}) => {
+  
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
-            email: "",
+            username: user.username,
+            email: attributes.email,
         },
       })
     function onSubmit(data) {
@@ -32,6 +34,7 @@ const EditProfileForm = ({className}) => {
     }
 
   return (
+    
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className={ `${className} space-y-8 `}>
         <FormField
