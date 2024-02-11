@@ -1,3 +1,4 @@
+import "../app/globals.css"
 import { Route, Routes} from 'react-router-dom';
 import RootPage from './pages/home/root'
 import ProjectsPage from './pages/projects/ProjectsPage';
