@@ -2,12 +2,11 @@
 
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { useAuthenticator } from '@aws-amplify/ui-react';
 import ProfileDropdown from './profileDropdown';
 const LoggedOut = () => {
     
     return(
-      <header className='flex fixed w-full bg-white border-b h-16 z-40 justify-between  '>
+      <header className='flex top-0  sticky w-full bg-white border-b h-16 z-40 justify-between  '>
         <div className='mt-4 ml-12'>
           <Link to='/'>
             <p className='text-2xl font-extrabold tracking-tigh text-[#6200EE]'>Tasker</p>
@@ -26,7 +25,7 @@ const LoggedOut = () => {
   const LoggedIn = () => {
     
     return(
-      <header className='flex w-full bg-white h-12 z-40 justify-between border  '>
+      <header className='flex w-full top-0  sticky bg-white h-12 z-40 justify-between border '>
         <div className='mt-2 ml-12'>
           <Link to='/'>
             <p className='text-2xl font-extrabold tracking-tigh text-[#6200EE]'>Tasker</p>
