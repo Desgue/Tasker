@@ -41,6 +41,19 @@
           "userPoolName": "taskerfrontend0a04f02c_userpool_0a04f02c-dev",
           "webClientId": "74l1pq42p2o60cbkughkf8q9v8",
           "nativeClientId": "18c5j0tmm6ugtc6trtcj552ed8"
+        },
+        "tasker": {
+          "userPoolId": "eu-west-2_IBRP7E16S",
+          "userPoolName": "taskerfrontend0a04f02c_userpool_0a04f02c-dev",
+          "webClientId": "74l1pq42p2o60cbkughkf8q9v8",
+          "nativeClientId": "18c5j0tmm6ugtc6trtcj552ed8",
+          "identityPoolId": "eu-west-2:2325281d-4cc7-482e-b90d-2f22752f05e7",
+          "identityPoolName": "taskerfrontend0a04f02c_identitypool_0a04f02c__dev",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::834198428289:role/amplify-taskerfrontend-dev-215101-authRole",
+          "authRoleName": "amplify-taskerfrontend-dev-215101-authRole",
+          "unauthRoleArn": "arn:aws:iam::834198428289:role/amplify-taskerfrontend-dev-215101-unauthRole",
+          "unauthRoleName": "amplify-taskerfrontend-dev-215101-unauthRole"
         }
       }
     }
