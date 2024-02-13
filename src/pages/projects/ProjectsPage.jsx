@@ -45,7 +45,7 @@ const ProjectsPage =  () => {
            return (
                 <TokenContext.Provider value={tokens}>
                   <>
-                  <section className='min-w-screen min-h-screen w-full h-full flex flex-col pt-36'>
+                  <section className='min-w-screen min-h-screen w-full h-full flex flex-col pt-12'>
                     <div className='container h-full  text-center mx-auto'>
                         <p className='scroll-m-20 text-2xl font-bold tracking-tight lg:text-5xl text-[#6200EE]'>Projects</p>
                         <p className='pt-4 scroll-m-20 text-xl font-semibold tracking-tight'>Create, edit, delete and manage your projects</p>
