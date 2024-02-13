@@ -1,30 +1,32 @@
 import React from 'react'
 import Board from "./board"
 import BoardSider from './boardSider'
-
-const getTasks = async (projectId) => {
-  const url = `http://localhost:8000/projects/${projectId}/tasks`
-  const response = await fetch(url, {
-    next: {
-      revalidate: 60
-    },
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      
-    }, 
-  } )
-  const data = await response.json()
-  
-  return data
-}
+import {getTasks} from '../../service/api'
+import {TokenContext} from '../../App'
+import { useParams } from 'react-router-dom'
 
 const TasksPage = () => {
-  return (
+  const tokens = React.useContext(TokenContext)
+  const [tasks, setTasks] = React.useState([])
+  const projectId = useParams().projectId
+
+  React.useEffect(() => {
+    document.title = 'Tasks'
+    getTasks(projectId, tokens)
+    .then((tasks) => {
+      setTasks(tasks)
+    })
+    .catch((err) => {
+      console.log(err)
+    })  
+  }
+  , [])
+
+  return  (
     <main className='pt-36'>
         <div className='flex flex-row gap-8'>
         <BoardSider />
-        <Board />
+        <Board tasks={tasks} />
         </div>
     </main>
   )

@@ -8,24 +8,31 @@ import {
     CardTitle
   } from "@/components/ui/card"
   import {Button} from "@/components/ui/button"
+  import { useNavigate, useParams } from "react-router-dom"
+  import { deleteTask } from "../../service/api"
+  import { TokenContext } from "../../App"
+
 
 
 
 
 const DeletePopup = ({task, setShowDeletePopup}) => {
-
+  const tokens = React.useContext(TokenContext)
+  const projectId = useParams().projectId
+  const navigate = useNavigate()
     const deleteHandler = async () => {
-        const url = `http://localhost:8000/projects/${params.projectId}/tasks/${task.id}`
-        const response = await fetch(url, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        console.log(response)
-        router.push(`/projects/${params.projectId}/tasks`)
-        router.refresh()
-        setShowDeletePopup(false)
+        try{
+            const response = await deleteTask(projectId, task.id, tokens)
+            if(response.ok){
+            console.log('Task deleted')
+            setShowDeletePopup(false)
+            navigate(0)
+            navigate(`/projects/${projectId}/tasks`)
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
       }
     const cancelHandler = () => {
         setShowDeletePopup(false)

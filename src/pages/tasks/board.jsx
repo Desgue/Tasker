@@ -1,10 +1,13 @@
 import React from 'react'
 import Task from './task'
  
-const Board = ({pending, inProgress, done}) => {
+const Board = ({tasks}) => {
+  const pending = tasks ? tasks.filter(task => task.status === 'Pending') : null
+  const inProgress = tasks ? tasks.filter(task => task.status === 'InProgress') : null
+  const done = tasks ? tasks.filter(task => task.status === 'Done') : null
 
-  const renderCard = (tasks) => tasks.map((task) => {
-    return (
+  const renderCard = (taskList) => taskList.map((task) => {
+    return task && (
       <li className='p-2'> <Task task={task}/></li>
     )
   })
@@ -17,7 +20,7 @@ const Board = ({pending, inProgress, done}) => {
           Pending
         </h1>
         <div className="flex flex-col pt-4">
-          <ul className='mx-auto' >
+          <ul className='mx-auto w-full' >
             {pending && renderCard(pending)}
           </ul>
 
@@ -29,7 +32,7 @@ const Board = ({pending, inProgress, done}) => {
         </h1>
         <div>
           <div className="flex flex-col pt-4 ">
-            <ul className='mx-auto'>
+            <ul className='mx-auto w-full'>
               {inProgress && renderCard(inProgress)}
             </ul>
           </div>
@@ -39,7 +42,7 @@ const Board = ({pending, inProgress, done}) => {
         <h1 className='scroll-m-20  py-8 text-3xl font-semibold tracking-tight transition-colors first:mt-0'>
           Done</h1>
         <div className="flex flex-col pt-4 ">
-          <ul className='mx-auto'>
+          <ul className='mx-auto w-full'>
             {done && renderCard(done)}
           </ul>
         </div>

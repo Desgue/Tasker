@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
     <section className='min-w-full min-h-screen h-screen '>
-        <div className='container h-full   pt-56 text-center mx-auto'>
+        <div className='container h-full pt-28 lg:pt-32 text-center mx-auto'>
           <h1 className='scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-6xl text-[#6200EE]'>Tasker</h1>
           <h1 className='pt-4 scroll-m-20 text-4xl font-extrabold  tracking-tight lg:text-5xl'>Project management tool</h1>
           <p className='pt-8 scroll-m-20 text-xl font-semibold tracking-tight'>A free open-source minimalist alternative to Jira </p>
@@ -19,14 +19,14 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className='min-w-full min-h-screen h-screen'>
-        <div className='container h-full   pt-36 text-center mx-auto  '>
+      <section className='min-w-full min-h-screen h-screen '>
+        <div className='container h-full pt-28 lg:pt-32 text-center mx-auto '>
           <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>Our <span className='text-violet-600'> Features</span></h1>
           <p className='pt-12 scroll-m-20 text-xl font-semibold tracking-tight'>We have a minimalist approach to project management</p>
           <p className='pt-2 scroll-m-20 text-md font-medium tracking-tight'>Log your projects, create goals and hold yourself accountable while you develop your next big thing</p>
 
-          <div className='flex flex-row justify-center pt-12'>
-            <div className='flex flex-col items-center pt-12'>
+          <div className='flex lg:flex-row flex-col justify-center'>
+            <div className='flex flex-col h- items-center pt-12 '>
               <h1 className='scroll-m-20 text-2xl font-semibold tracking-tight'>Project Management</h1>
               <p className='pt-4 scroll-m-20'>Create, edit, delete projects and assign tasks to your team members</p>
             </div>
