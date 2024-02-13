@@ -2,23 +2,6 @@ import React from 'react'
 import Board from "./board"
 import BoardSider from './boardSider'
 
-const getTasks = async (projectId) => {
-  const url = `http://localhost:8000/projects/${projectId}/tasks`
-  const response = await fetch(url, {
-    next: {
-      revalidate: 60
-    },
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      
-    }, 
-  } )
-  const data = await response.json()
-  
-  return data
-}
-
 const TasksPage = () => {
   return (
     <main className='pt-36'>

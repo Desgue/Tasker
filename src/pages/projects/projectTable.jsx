@@ -32,15 +32,15 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { getProjects } from "../../service/api"
-import { TokenContext } from "./ProjectsPage"
+import { TokenContext } from "../../App"
 
 export  function DataTable({columns}) {
-    const token = React.useContext(TokenContext)
+    const tokens = React.useContext(TokenContext)
     const [data, setData] = React.useState([])
 
     React.useEffect(() => {
       async function fetchProjects() {
-        const projects = await getProjects(token)
+        const projects = await getProjects(tokens)
         projects && projects.forEach((project) => {
           project.createdAt = new Date(project.createdAt).toLocaleString()
         })

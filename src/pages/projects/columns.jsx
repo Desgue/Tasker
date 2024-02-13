@@ -44,7 +44,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { deleteProject, editProject } from "../../service/api"
-import { TokenContext } from "./ProjectsPage";
+import { TokenContext } from "../../App"
 
   
 const openContext = React.createContext()
@@ -127,10 +127,10 @@ export const columns = [
 ]
 const DeleteBtn = ({project}) => {
   const context = React.useContext(openContext)
-  const token = React.useContext(TokenContext)
+  const tokens = React.useContext(TokenContext)
   return (
     <Button onClick={() =>{ 
-      deleteProject(project.id, token)
+      deleteProject(project.id, tokens)
       .then(() => {
         console.log('Project deleted');
         context.setOpen(false);

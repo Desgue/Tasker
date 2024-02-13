@@ -23,7 +23,7 @@ import {  z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { createProject } from "../../service/api"
-import { TokenContext } from "./ProjectsPage"
+import { TokenContext } from "../../App"
 import { newProjectCtx } from "./ProjectsPage"
 
 
@@ -39,7 +39,7 @@ const formSchema = z.object({
 
 
 const NewProjectForm =  () => {  
-    const token = React.useContext(TokenContext)
+    const tokens = React.useContext(TokenContext)
     const context = React.useContext(newProjectCtx)
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -54,7 +54,7 @@ const NewProjectForm =  () => {
     
     <Form {...form}>
             <form onSubmit={form.handleSubmit(data =>{ 
-                createProject(data, token)
+                createProject(data, tokens)
                 .then((resp) => {
                     console.log(resp);
                     context.setOpen(false);

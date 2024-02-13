@@ -5,7 +5,7 @@ const apiURL = isProd ?  'http://ttracker-api-production.up.railway.app' : 'http
 const prodUrl = "https://ttracker-api-production.up.railway.app"
 const devUrl = "http://localhost:8000"
 
-export const getProjects = async(token) => {
+export const getProjects = async(tokens) => {
 	const url = prodUrl+'/projects'
 	console.log(url)
 	const response = await fetch(url, {
@@ -15,8 +15,8 @@ export const getProjects = async(token) => {
 	  method: 'GET',
 	  headers: {
 		'Content-Type': 'application/json',
-		"Authorization": `Bearer ${token.access}`,
-		"Authentication": `Bearer ${token.id}`,
+		"Authorization": `Bearer ${tokens.accessToken}`,
+		"Authentication": `Bearer ${tokens.idToken}`,
 		
 	  }, 
 	} )
@@ -25,7 +25,7 @@ export const getProjects = async(token) => {
 	return data
   }
 
-export const createProject = async (data, token) => {
+export const createProject = async (data, tokens) => {
     const url = prodUrl+"/projects"
 	try{
 
@@ -33,8 +33,8 @@ export const createProject = async (data, token) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				"Authorization": `Bearer ${token.access}`,
-				"Authentication": `Bearer ${token.id}`,
+				"Authorization": `Bearer ${tokens.accessToken}`,
+				"Authentication": `Bearer ${tokens.idToken}`,
 			},
 			body: JSON.stringify(data)
 		})
@@ -48,7 +48,7 @@ export const createProject = async (data, token) => {
 	}
   }
 
-export const deleteProject = async (projectId, token) => {
+export const deleteProject = async (projectId, tokens) => {
     const url = prodUrl+'/projects/'+projectId
 	try{
 
@@ -56,8 +56,8 @@ export const deleteProject = async (projectId, token) => {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				"Authorization": `Bearer ${token.access}`,
-				"Authentication": `Bearer ${token.id}`,
+				"Authorization": `Bearer ${tokens.accessToken}`,
+				"Authentication": `Bearer ${tokens.idToken}`,
 			},
 		})
 		if (response.ok ){
@@ -71,15 +71,15 @@ export const deleteProject = async (projectId, token) => {
 	}
 }
 
-export const editProject = async (data, projectId, token) => {
+export const editProject = async (data, projectId, tokens) => {
 	const url = prodUrl+'/projects/'+projectId
 	try{
 		const response = await fetch(url, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				"Authorization": `Bearer ${token.access}`,
-				"Authentication": `Bearer ${token.id}`,
+				"Authorization": `Bearer ${tokens.accessToken}`,
+				"Authentication": `Bearer ${tokens.idToken}`,
 			},
 			body: JSON.stringify(data)
 		})
@@ -102,8 +102,8 @@ export const editProject = async (data, projectId, token) => {
 
   // Tasks
 
-const getTasks = async (projectId) => {
-	const url = `http://localhost:8000/projects/${projectId}/tasks`
+const getTasks = async (projectId, tokens) => {
+	const url = prodUrl+'/projects/'+projectId+'/tasks'
 	const response = await fetch(url, {
 	  next: {
 		revalidate: 60
