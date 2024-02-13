@@ -3,9 +3,7 @@
   "resourceName": "tasker",
   "serviceType": "imported",
   "region": "eu-west-2",
-  "authProvidersUserPool": [
-    "Google"
-  ],
+  "authProvidersUserPool": [],
   "requiredAttributes": [
     "email"
   ],
