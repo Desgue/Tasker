@@ -1,54 +1,38 @@
-import * as React from "react"
+import React from 'react'
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DoubleArrowLeftIcon,
-  DoubleArrowRightIcon,
-} from "@radix-ui/react-icons"
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getSortedRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-} from "@tanstack/react-table"
- 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { getProjects } from "../../service/api"
-import { TokenContext } from "../../App"
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    DoubleArrowLeftIcon,
+    DoubleArrowRightIcon,
+  } from "@radix-ui/react-icons"
+  import {
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
+    getSortedRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+  } from "@tanstack/react-table"
+   
+  import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
+import {Input} from "@/components/ui/input"
+import {Button} from "@/components/ui/button"
 
-export  function DataTable({columns}) {
-    const tokens = React.useContext(TokenContext)
-    const [data, setData] = React.useState([])
-
-    React.useEffect(() => {
-      async function fetchProjects() {
-        const projects = await getProjects(tokens)
-        projects && projects.forEach((project) => {
-          project.createdAt = new Date(project.createdAt).toLocaleString()
-        })
-        projects && setData(projects)
-      }
-      fetchProjects()
-    }, [])
-
+const DataTable = ({data, columns, filterBy}) => {
     const [sorting, setSorting] = React.useState([])
     const [columnFilters, setColumnFilters] = React.useState([])
     const table = useReactTable({
@@ -68,16 +52,16 @@ export  function DataTable({columns}) {
 
       })
       return (
-    <div>
-      <div className="flex items-center justify-between px-2">
+    <div >
+      <div className="flex items-center justify-between px-2 ">
 
         
         <div className="flex items-center py-4">
             <Input
               placeholder="Filter description..."
-              value={(table.getColumn("description")?.getFilterValue() ) ?? ""}
+              value={(table.getColumn(`${filterBy}`)?.getFilterValue() ) ?? ""}
               onChange={(event) =>
-                table.getColumn("description")?.setFilterValue(event.target.value)
+                table.getColumn(`${filterBy}`)?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
               />
@@ -190,4 +174,6 @@ export  function DataTable({columns}) {
         </div>
     </div>
       )
-    }
+}
+
+export default DataTable

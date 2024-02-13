@@ -1,6 +1,6 @@
 import "../app/globals.css"
 import React from 'react';
-import { Navigate, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import RootPage from './pages/home/root'
 import ProjectsPage from './pages/projects/ProjectsPage';
 import ProfilePage from './pages/profile/ProfilePage';
@@ -9,6 +9,9 @@ import Navbar from './components/layout/navbar';
 import LoginPage from './pages/login/login';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchAuthSession } from "aws-amplify/auth";
+import awsExports from "./aws-exports"
+import { Amplify } from "aws-amplify"
+Amplify.configure(awsExports);
 
 
 export const TokenContext = React.createContext(null)
@@ -37,18 +40,21 @@ function App() {
 }
 export default App
 function AppPage({tokens, user}) {
+
   return (
     <> 
     <TokenContext.Provider value={tokens}>
+      <BrowserRouter>
       <Navbar isLogged= {user ? true : false}/>
         <Routes>
-          <Route path='/projects/:projectId/tasks' element={ user ? <TasksPage/> : <Navigate to="/login"/>} />
-          <Route path='/projects' element={ user ? <ProjectsPage/> : <Navigate to="/login"/>}/>
-          <Route path='/profile' element={user  ? <ProfilePage/> : <Navigate to="/login"/>}/>
-          <Route path='/login' element={! user ? <LoginPage/>  : <Navigate to="/projects"/> }/>
+          <Route path= "projects/:projectId/tasks" element={<TasksPage/>}/>
+          <Route path='/projects' element={<ProjectsPage/>}/>
+          <Route path='/profile' element={ user ? <ProfilePage/> : <Navigate to="/login"/> }/>
+          <Route path='/login' element={ <LoginPage/>}/>
           <Route path='/' element={<RootPage/>}/>
-          <Route path='*' element={<div className='container text-center pt-36 '> 404 not found </div>}/>
+          <Route path='*' element={<Navigate to="/"/>}/>
         </Routes>
+      </BrowserRouter>
     </TokenContext.Provider>
   </>
   );

@@ -5,13 +5,15 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"
 import { Authenticator, View, useAuthenticator } from '@aws-amplify/ui-react';
 
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Authenticator.Provider>
       <View>
-        <BrowserRouter>
+
           <App />
-        </BrowserRouter>
+
       </View>
     </Authenticator.Provider>
   </React.StrictMode>,

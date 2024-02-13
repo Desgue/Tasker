@@ -19,15 +19,12 @@ import { Navigate } from 'react-router-dom';
 import { TokenContext } from '../../App';
 
 
-Amplify.configure(awsExports);
-
 export const newProjectCtx = React.createContext() 
+const ProjectsPage =  () => {  
+  const user = useAuthenticator(context => [context.user]);
+  console.log(user)
 
-const ProjectsPage =  () => {
-  const {user} = useAuthenticator(context => [context.user])
-  
-
-  return !user ? <Navigate href="/login"/> :  (
+  return (
                   <>
                   <section className='min-w-screen min-h-screen w-full h-full flex flex-col pt-12'>
                     <div className='container h-full  text-center mx-auto'>

@@ -1,9 +1,9 @@
 import React from 'react'
-import Board from "./board"
-import BoardSider from './boardSider'
 import {getTasks} from '../../service/api'
 import {TokenContext} from '../../App'
 import { useParams } from 'react-router-dom'
+import DataTable  from '../../components/DataTable'
+import columns from './columns'
 
 const TasksPage = () => {
   const tokens = React.useContext(TokenContext)
@@ -22,14 +22,14 @@ const TasksPage = () => {
   }
   , [])
 
-  return  (
+   if (tasks) { return (
     <main className='pt-36'>
-        <div className='flex flex-row gap-8'>
-        <BoardSider />
-        <Board tasks={tasks} />
-        </div>
+      <div className='container mx-auto mt-12 py-10  border rounded-lg shadow-xl'>
+        <DataTable data={tasks} columns={columns} filterBy="description"/>
+      </div>
     </main>
   )
+  } 
 }
 
 export default TasksPage
