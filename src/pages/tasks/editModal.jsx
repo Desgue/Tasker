@@ -29,6 +29,10 @@ import {
     SelectValue,
   } from "@/components/ui/select"
   import { Textarea } from "@/components/ui/textarea"
+  import { useParams } from "react-router-dom"
+  import { useNavigate } from "react-router-dom"
+  import { editTask } from "../../service/api"
+  import { TokenContext } from "../../App"
 
 
 
@@ -46,7 +50,8 @@ const formSchema = z.object({
 
 
 const EditTaskModal =  ({task, setShowEditForm}) => {
-
+  const tokens = React.useContext(TokenContext)
+  const projectId = useParams().projectId
     useEffect(() => {
         console.log('Modal component rendered')
 
@@ -73,16 +78,21 @@ const EditTaskModal =  ({task, setShowEditForm}) => {
     setShowEditForm(false)
   }
 
-  const submitHandler = (data) => {
-    fetch(`http://localhost:8000/projects/${params.projectId}/tasks/${task.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).catch(err => console.log(err))
-    setShowEditForm(false)
-    console.log(data)
+  const submitHandler = async (data) => {
+    try {
+      const editedTask = {
+        title: data.title,
+        description: data.description,
+        status: data.status,
+      }
+      const response = await editTask(editedTask, projectId, task.id, tokens)
+      console.log(response)
+      if (response.ok) setShowEditForm(false)
+
+    }
+    catch(err){
+      console.log(err)
+    }
   }
 
 

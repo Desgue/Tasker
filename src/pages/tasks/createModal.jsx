@@ -8,7 +8,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-
+import { createTask } from '../../service/api'
+import { TokenContext } from '../../App'
+import { useParams, useNavigate } from 'react-router-dom'
 
 
 const formSchema = z.object({
@@ -23,8 +25,10 @@ const formSchema = z.object({
 
 
 const NewTaskForm = ({setShowAddForm}) => {
-
-
+    const tokens = React.useContext(TokenContext)
+    const projectId = useParams().projectId
+    const navigate = useNavigate()
+    console.log(projectId)  
     useEffect(() => {
         document.body.style.overflow = 'hidden'
         document.addEventListener("keydown", (e) => { 
@@ -35,7 +39,25 @@ const NewTaskForm = ({setShowAddForm}) => {
         }
         )
       }, [])
+      const submitHandler = async (data) => {
+        try{
+          const newTask = {
+            title: data.title,
+            description: data.description,
+            status: data.status,
+            projectId: Number(projectId)
+          }
+          const response = await createTask(newTask, projectId, tokens)
+          setShowAddForm(false)
+        }
+        catch(err){
+          console.log(err)
+        }
+      }
 
+      const cancelHandler = () => {
+        setShowAddForm(false)
+    }
       const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -45,30 +67,8 @@ const NewTaskForm = ({setShowAddForm}) => {
         }
     })
 
-    const submitHandler = async (data) => {
-      const newTask = {
-        title: data.title,
-        description: data.description,
-        status: data.status,
-        projectId: Number(params.projectId)
-      }
-      
-      const url = `http://localhost:8000/projects/${params.projectId}/tasks`
-      const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newTask)
-        })
-        if (response.ok) {
-            console.log('Task added successfully')
-        }
-        setShowAddForm(false)
-    }
-    const cancelHandler = () => {
-        setShowAddForm(false)
-    }
+    
+    
   return (
     <>
   <div className={`fixed z-40 left-0 top-0 w-full min-h-screen rounded-none bg-black bg-opacity-60 `}>
@@ -107,7 +107,7 @@ const NewTaskForm = ({setShowAddForm}) => {
                                 </FormControl>
                             <SelectContent>
                                 <SelectItem value="Pending">Pending</SelectItem>
-                                <SelectItem value="InProgress">InProgress</SelectItem>  
+                                <SelectItem value="InProgress">In Progress</SelectItem>  
                                 <SelectItem value="Done">Done</SelectItem>
                             </SelectContent>
                         </Select>
@@ -117,7 +117,7 @@ const NewTaskForm = ({setShowAddForm}) => {
                 )} />
                 <div className='flex justify-between'>
                     <Button onClick={cancelHandler} className="" variant="">Cancel</Button>
-                    <Button  type="submit" className="" variant="secondary">Add</Button>
+                    <Button type="submit" className="" variant="secondary">Add</Button>
                 </div>
                 </form>
                  

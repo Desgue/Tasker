@@ -102,32 +102,36 @@ export const editProject = async (data, projectId, tokens) => {
 
   // Tasks
 
-const getTasks = async (projectId, tokens) => {
+export const getTasks = async (projectId, tokens) => {
 	const url = prodUrl+'/projects/'+projectId+'/tasks'
 	const response = await fetch(url, {
-	  next: {
-		revalidate: 60
-	  },
 	  method: 'GET',
 	  headers: {
 		'Content-Type': 'application/json',
+		"Authorization": `Bearer ${tokens.accessToken}`,
+		"Authentication": `Bearer ${tokens.idToken}`,
 		
 	  }, 
 	} )
 	const data = await response.json()
+	if (response.ok){
+		console.log('Tasks fetched')
+	}
 	
 	return data
   }
 
 
-/* const createTask = async (data) => {
-	const url = `http://localhost:8000/projects/${params.projectId}/tasks`
+export const createTask = async (data, projectId, tokens) => {
+	const url = prodUrl+'/projects/'+projectId+'/tasks'
       const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+				"Authorization": `Bearer ${tokens.accessToken}`,
+				"Authentication": `Bearer ${tokens.idToken}`,
             },
-            body: JSON.stringify(newTask)
+            body: JSON.stringify(data)
         })
         if (response.ok) {
             console.log('Task added successfully')
@@ -136,25 +140,35 @@ const getTasks = async (projectId, tokens) => {
 
 
 
-const deleteTask = async () => {
-	const url = `http://localhost:8000/projects/${params.projectId}/tasks/${task.id}`
+export const deleteTask = async (projectId, taskId, tokens) => {
+	const url = prodUrl+'/projects/'+projectId+'/tasks/'+taskId
 	const response = await fetch(url, {
 	  method: 'DELETE',
 	  headers: {
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json',
+		"Authorization": `Bearer ${tokens.accessToken}`,
+		"Authentication": `Bearer ${tokens.idToken}`,
 	  }
 	})
-	console.log(response)
-	router.push(`/projects/${params.projectId}/tasks`)
-	router.refresh()
-	setShowDeletePopup(false)
+	if (response.ok){
+		console.log('Task deleted')
+		return response
+	}
   }
 
-const updateTask = fetch(`http://localhost:8000/projects/${params.projectId}/tasks/${task.id}`, {
-	method: 'PUT',
-	headers: {
-		'Content-Type': 'application/json'
-	},
-	body: JSON.stringify(data)
-}).catch(err => console.log(err))
- */
+export const editTask = async(data, projectId, taskId, tokens)=>{
+	const url = prodUrl+'/projects/'+projectId+'/tasks/'+taskId
+	const response = await fetch(url, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+			"Authorization": `Bearer ${tokens.accessToken}`,
+			"Authentication": `Bearer ${tokens.idToken}`,
+		},
+		body: JSON.stringify(data)
+	})
+	if (response.ok){
+		console.log('Task updated')
+	}
+}
+

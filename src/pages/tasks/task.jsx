@@ -21,12 +21,15 @@ const Task = ({task}) => {
   <> 
   {showEditForm && <EditTaskModal task={task} setShowEditForm={setShowEditForm}/> }
   {showDeletePopup && <DeletePopup task={task}  setShowDeletePopup={setShowDeletePopup}/> }
-    <Card className='w-[400px] h-fit rounded-sm shadow-sm hover:shadow-md'>
+    <Card className='w-full h-fit rounded-sm shadow-sm hover:shadow-md'>
       <CardHeader>
-        <CardTitle>{task.title}</CardTitle>
+        <CardTitle className="text-2xl font-bold">{task.title}</CardTitle>
       </CardHeader>
       <CardContent className=''>
-        <p>{task.description}</p>
+        <div className='flex flex-col'>
+        <p className='text-lg font-medium'>{task.description}</p>
+        <p className='text-xs pt-12'> Created At: {new Date(task.createdAt).toLocaleString()}</p>
+        </div>
       </CardContent>
       <CardFooter>
         <Button onClick={setShowDeletePopup} className="mx-auto" variant="">Delete</Button>
