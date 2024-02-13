@@ -86,7 +86,7 @@ const EditTaskModal =  ({task, setShowEditForm}) => {
         status: data.status,
       }
       const response = await editTask(editedTask, projectId, task.id, tokens)
-      console.log(response)
+
       if (response.ok) setShowEditForm(false)
 
     }

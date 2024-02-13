@@ -23,6 +23,7 @@ const Board = ({tasks}) => {
           <ul className='mx-auto w-full' >
             {pending && renderCard(pending)}
           </ul>
+          
 
         </div>
       </div>

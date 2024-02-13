@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form"
 import { createProject } from "../../service/api"
 import { TokenContext } from "../../App"
 import { newProjectCtx } from "./ProjectsPage"
+import { useNavigate } from "react-router-dom"
 
 
 const formSchema = z.object({
@@ -41,6 +42,7 @@ const formSchema = z.object({
 const NewProjectForm =  () => {  
     const tokens = React.useContext(TokenContext)
     const context = React.useContext(newProjectCtx)
+    const navigate = useNavigate()
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -56,9 +58,9 @@ const NewProjectForm =  () => {
             <form onSubmit={form.handleSubmit(data =>{ 
                 createProject(data, tokens)
                 .then((resp) => {
-                    console.log(resp);
+
                     context.setOpen(false);
-                    window.location.reload();
+                    navigate(0);
                 })
             }
             )}>

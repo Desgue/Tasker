@@ -7,7 +7,6 @@ import NewTaskForm from "./createModal"
 const BoardSider = () => {
     const [showAddForm, setShowAddForm] = useState(false)
     useEffect(() => {
-        console.log('Board side bar component rendered')
         document.body.style.overflow = 'auto'
       }, [])
   return (

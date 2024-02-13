@@ -26,7 +26,6 @@ const DeletePopup = ({task, setShowDeletePopup}) => {
             if(response.ok){
             console.log('Task deleted')
             setShowDeletePopup(false)
-            navigate(0)
             navigate(`/projects/${projectId}/tasks`)
             }
         }

@@ -28,12 +28,12 @@ const NewTaskForm = ({setShowAddForm}) => {
     const tokens = React.useContext(TokenContext)
     const projectId = useParams().projectId
     const navigate = useNavigate()
-    console.log(projectId)  
+ 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
         document.addEventListener("keydown", (e) => { 
           if (e.key === "Escape") {
-            console.log('Escape key pressed')
+
             setShowEditForm(false)
           }
         }
@@ -53,6 +53,8 @@ const NewTaskForm = ({setShowAddForm}) => {
         catch(err){
           console.log(err)
         }
+
+
       }
 
       const cancelHandler = () => {

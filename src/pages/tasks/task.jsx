@@ -8,7 +8,6 @@ import DeletePopup from './deleteModal'
 
 const Task = ({task}) => {
   useEffect(() => { 
-    console.log('Task component rendered')
     document.body.style.overflow = 'auto'
   })
 
