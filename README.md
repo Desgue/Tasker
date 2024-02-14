@@ -1,4 +1,5 @@
-# Project Name
+# Tasker Project Management
+  https://production.d3ozduy4s4mqlc.amplifyapp.com/
 
 ## Table of Contents
 
@@ -43,8 +44,6 @@ This project kicked off when I noticed a need for better planning and tracking o
    - Assign specific roles for each project to streamline collaboration and responsibilities.
 
 
-
-
 ## System Architecture
 
 ![System Architecture Diagram](https://github.com/Desgue/tasker/blob/main/public/tasker-diagram2.drawio.svg)
@@ -61,7 +60,7 @@ This project kicked off when I noticed a need for better planning and tracking o
 3. Tailwind CSS
 
 **Backend**
-1. Go API with Gorilla Mux for routing
+1. [Go API](https://github.com/Desgue/ttracker-api) with Gorilla Mux for routing
 2. PostgresSql DB
 
 **Hosting**
