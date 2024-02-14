@@ -1,30 +1,75 @@
-# React + TypeScript + Vite
+# Project Name
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+- [Introduction](#introduction)
+- [Features](#features)
+- [System Architecture](#system-architecture)
+- [Technologies](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Introduction
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This project kicked off when I noticed a need for better planning and tracking of my side projects. The struggle was real – I'd start things, but finishing? Not so much. Regular project management tools were either team-centric or packed with features I didn't need. I wanted something more straightforward, less distracting. So, I decided to craft my own solution. It's been a journey,  and here's the kicker – it's not done yet. This tool is a work in progress, always evolving and teaching me new things. A mix of practicality and ongoing exploration.
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+**Implemented Features:**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. **Authentication and Authorization:**
+   - Secure user authentication and authorization process using Amazon Cognito user pools.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Project List with Priority Status:**
+   - Overview of projects with prioritized status for effective management.
+
+3. **Task Tracking:**
+   - Each project includes a task list with statuses: Pending, In Progress, or Done.
+
+
+
+**Planned Features:**
+
+1. **Kanban Board:**
+   - Intuitive drag-and-drop Kanban board for visualizing tasks within each project.
+   - The addition of a Kanban board enhances task visualization, making project management even more dynamic and user-friendly.
+
+2. **Collaboration:**
+   - Invite team members or friends to collaborate on projects together.
+
+3. **Role Assignment:**
+   - Assign specific roles for each project to streamline collaboration and responsibilities.
+
+
+
+
+## System Architecture
+
+![System Architecture Diagram](https://github.com/Desgue/tasker/blob/main/public/tasker-diagram2.drawio.svg)
+
+1. User registration or login initiates the process, with information securely stored in the Amazon Cognito user pool.
+2. Each user request includes an authentication token sent to the Golang API.
+3. The Golang API validates the token with Amazon Cognito.
+4. Upon successful validation, the server responds with the requested data.
+
+## Technologies Used
+**Frontend**
+1. React with Vite
+2. Shadcn UI components library
+3. Tailwind CSS
+
+**Backend**
+1. Go API with Gorilla Mux for routing
+2. PostgresSql DB
+
+**Hosting**
+1. Amazon Amplify hosts the frontend and Auth backend
+2. Railway hosts the API and the managed Postgress Instance
+
+## Getting Started
+
+
+
+
