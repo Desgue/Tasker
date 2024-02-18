@@ -1,12 +1,12 @@
 
 // Projects
-const isProd = import.meta.env.PROD
-const apiURL = isProd ?  'http://ttracker-api-production.up.railway.app' : 'http://localhost:8000'
-const prodUrl = "https://ttracker-api-production.up.railway.app"
-const devUrl = "http://localhost:8000"
+
+const env = import.meta.env.VITE_REACT_APP_ENV
+
+const apiURL = env === "PROD" ?  import.meta.env.VITE_REACT_APP_PROD_URL : import.meta.env.VITE_REACT_APP_DEV_URL
 
 export const getProjects = async(tokens) => {
-	const url = prodUrl+'/projects'
+	const url = apiURL+'/projects'
 	console.log(url)
 	const response = await fetch(url, {
 	  next: {
@@ -26,7 +26,7 @@ export const getProjects = async(tokens) => {
   }
 
 export const createProject = async (data, tokens) => {
-    const url = prodUrl+"/projects"
+    const url = apiURL+"/projects"
 	try{
 
 		const response = await fetch(url, {
@@ -49,7 +49,7 @@ export const createProject = async (data, tokens) => {
   }
 
 export const deleteProject = async (projectId, tokens) => {
-    const url = prodUrl+'/projects/'+projectId
+    const url = apiURL+'/projects/'+projectId
 	try{
 
 		const response = await fetch(url, {
@@ -72,7 +72,7 @@ export const deleteProject = async (projectId, tokens) => {
 }
 
 export const editProject = async (data, projectId, tokens) => {
-	const url = prodUrl+'/projects/'+projectId
+	const url = apiURL+'/projects/'+projectId
 	try{
 		const response = await fetch(url, {
 			method: 'PUT',
@@ -103,7 +103,7 @@ export const editProject = async (data, projectId, tokens) => {
   // Tasks
 
 export const getTasks = async (projectId, tokens) => {
-	const url = prodUrl+'/projects/'+projectId+'/tasks'
+	const url = apiURL+'/projects/'+projectId+'/tasks'
 	const response = await fetch(url, {
 	  method: 'GET',
 	  headers: {
@@ -123,7 +123,7 @@ export const getTasks = async (projectId, tokens) => {
 
 
 export const createTask = async (data, projectId, tokens) => {
-	const url = prodUrl+'/projects/'+projectId+'/tasks'
+	const url = apiURL+'/projects/'+projectId+'/tasks'
       const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -141,7 +141,7 @@ export const createTask = async (data, projectId, tokens) => {
 
 
 export const deleteTask = async (projectId, taskId, tokens) => {
-	const url = prodUrl+'/projects/'+projectId+'/tasks/'+taskId
+	const url = apiURL+'/projects/'+projectId+'/tasks/'+taskId
 	const response = await fetch(url, {
 	  method: 'DELETE',
 	  headers: {
@@ -157,7 +157,7 @@ export const deleteTask = async (projectId, taskId, tokens) => {
   }
 
 export const editTask = async(data, projectId, taskId, tokens)=>{
-	const url = prodUrl+'/projects/'+projectId+'/tasks/'+taskId
+	const url = apiURL+'/projects/'+projectId+'/tasks/'+taskId
 	const response = await fetch(url, {
 		method: 'PUT',
 		headers: {
