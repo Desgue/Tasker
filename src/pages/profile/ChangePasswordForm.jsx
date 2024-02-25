@@ -42,7 +42,7 @@ const ChangePasswordForm = ({className}) => {
             <FormItem>
               <FormLabel>Old Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter current password" {...field} type="password" className="w-1/3" />
+                <Input placeholder="Enter current password" {...field} type="password" className="w-3/5 lg:w-1/2" />
               </FormControl>
               <FormDescription>
                 Current password
@@ -58,7 +58,7 @@ const ChangePasswordForm = ({className}) => {
             <FormItem>
               <FormLabel>New Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter new password" {...field} type="password" className="w-1/3"/>
+                <Input placeholder="Enter new password" {...field} type="password" className="w-3/5 lg:w-1/2"/>
               </FormControl>
               <FormDescription>
                 New Password
@@ -74,7 +74,7 @@ const ChangePasswordForm = ({className}) => {
             <FormItem>
               <FormLabel>Confirm New Password</FormLabel>
               <FormControl>
-                <Input id={3} placeholder="Confirm password" {...field} type="password" className="w-1/3"/>
+                <Input id={3} placeholder="Confirm password" {...field} type="password" className="w-3/5 lg:w-1/2"/>
               </FormControl>
               <FormDescription>
                 Confirm your new password

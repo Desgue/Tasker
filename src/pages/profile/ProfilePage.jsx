@@ -30,8 +30,10 @@ const ProfilePage = () => {
       setUserAttributes(attributes);
     })
     .catch((error) => {
+      setUserAttributes(null);
       console.log(error);
     })
+    redirect('/login')
   }
   , [])
 
@@ -49,7 +51,7 @@ const ProfilePage = () => {
               </div>
             </div>
           <Separator className="w-[95%] mx-auto " />
-            <section className="grid grid-cols-3">
+            <section className="flex flex-col container lg:grid lg:grid-cols-3">
               <div className="col-start-2 col-end-3 flex flex-col justify-center pt-8">
                 <p className="text-2xl font-bold">Account Settings</p>
                 <div className="text-sm w-fit mt-4">
@@ -63,7 +65,7 @@ const ProfilePage = () => {
                   <EditProfileForm user={user} attributes={userAttributes}/>
                 </div>
                 <Separator className="mt-12"/>
-                <div className="pt-16">
+                <div className="py-16 ">
                   <h2 className="text-xl font-bold pb-2">Edit Password</h2>
                   <ChangePasswordForm />
                 </div>
