@@ -30,7 +30,7 @@ import {useParams} from 'react-router-dom'
 
 
 
-const NewTaskForm = () => {
+const NewTaskForm = ({setOpen}) => {
     const projectId = useParams().projectId
     const tokens = React.useContext(TokenContext)
     const Navigate = useNavigate()
@@ -61,8 +61,9 @@ const NewTaskForm = () => {
         }
         try {
         const res = await createTask(newTask, projectId, tokens)
-        Navigate(0)
-        console.log(res)
+        setOpen(false)
+
+
         }
         catch(err){
             console.log(err)
@@ -108,7 +109,7 @@ const NewTaskForm = () => {
                 )} />
                 <div className='flex justify-between pt-4'>
                     <DialogClose asChild>
-                      <Button type="button" variant="outline">Cancel</Button>
+                      <Button  type="button" variant="outline">Cancel</Button>
                     </DialogClose>
                     <Button  type="submit" className="bg-[#6200EE] text-white">Submit</Button>
                 </div>

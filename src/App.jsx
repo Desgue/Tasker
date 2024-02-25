@@ -41,14 +41,14 @@ function App() {
 export default App
 function AppPage({tokens, user}) {
 
-  return (
+  if(user) return (
     <> 
     <TokenContext.Provider value={tokens}>
       <BrowserRouter>
       <Navbar isLogged= {user ? true : false}/>
         <Routes>
-          <Route path= "projects/:projectId/tasks" element={user ? <TasksPage/> : <Navigate to="/login"/>}/>
           <Route path='/projects' element={user ? <ProjectsPage/> : <Navigate to="/login"/>}/>
+          <Route path= "projects/:projectId/tasks" element={user ? <TasksPage/> : <Navigate to="/login"/>}/>
           <Route path='/profile' element={ user ? <ProfilePage/> : <Navigate to="/login"/> }/>
           <Route path='/login' element={ !user ? <LoginPage/> : <Navigate to="/projects"/> }/>
           <Route path='/' element={<RootPage/>}/>

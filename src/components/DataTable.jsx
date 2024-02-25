@@ -58,7 +58,7 @@ const DataTable = ({data, columns, filterBy}) => {
         
         <div className="flex items-center py-4">
             <Input
-              placeholder="Filter description..."
+              placeholder="Filter by description..."
               value={(table.getColumn(`${filterBy}`)?.getFilterValue() ) ?? ""}
               onChange={(event) =>
                 table.getColumn(`${filterBy}`)?.setFilterValue(event.target.value)
@@ -68,7 +68,7 @@ const DataTable = ({data, columns, filterBy}) => {
         </div>
 
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="ml-4 md:ml-0 text-xs md:text-sm font-medium">Rows per page</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {

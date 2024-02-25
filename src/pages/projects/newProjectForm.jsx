@@ -101,7 +101,7 @@ const NewProjectForm =  () => {
                 )} />
                 <div className='flex justify-between'>
                 <DialogClose asChild>
-                    <Button type="button " className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2] p-4 mt-2">Cancel</Button>
+                    <Button  className="bg-[#6200EE] w-[64px] rounded-[8px] text-white hover:bg-[#5f19c2] p-4 mt-2">Cancel</Button>
                 </DialogClose>
                     <Button  type="submit" className="bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2] p-4 mt-2" variant="secondary">Create</Button>
                 </div>

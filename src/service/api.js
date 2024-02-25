@@ -3,7 +3,7 @@
 
 const env = import.meta.env.VITE_REACT_APP_ENV
 const isProd = import.meta.env.PROD
-const apiURL = isProd?  import.meta.env.VITE_REACT_APP_PROD_URL : import.meta.env.VITE_REACT_APP_DEV_URL
+const apiURL = !isProd?  import.meta.env.VITE_REACT_APP_PROD_URL : import.meta.env.VITE_REACT_APP_DEV_URL
 
 export const getProjects = async(tokens) => {
 	const url = apiURL+'/projects'
