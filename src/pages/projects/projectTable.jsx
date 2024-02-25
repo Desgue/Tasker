@@ -68,7 +68,7 @@ export  function DataTable({columns}) {
 
       })
       return (
-    <div>
+    <div className="">
       <div className="flex items-center justify-between px-2">
 
         
@@ -84,7 +84,7 @@ export  function DataTable({columns}) {
         </div>
 
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="pl-4 text-xs lg:text-base lg:pr-2 font-medium">Rows per page</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {
