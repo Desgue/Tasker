@@ -3,6 +3,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import ProfileDropdown from './profileDropdown';
+import ProfileSheet from './profileSheet';
 const LoggedOut = () => {
     
     return(
@@ -32,7 +33,11 @@ const LoggedOut = () => {
             
           </Link>
         </div>
-        <div className='flex'>
+        <div className='flex lg:hidden'>
+          <ProfileSheet/>
+        </div>
+        <div className='hidden lg:flex'>
+          
           <ProfileDropdown/>       
         </div>
       </header>

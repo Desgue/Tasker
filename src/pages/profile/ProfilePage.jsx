@@ -10,7 +10,7 @@ import { redirect } from 'react-router-dom';
 async function handleFetchUserAttributes() {
   try {
     const userAttributes = await fetchUserAttributes();
-    console.log(userAttributes);
+
     return userAttributes;
   } catch (error) {
     console.log(error);
@@ -21,7 +21,7 @@ async function handleFetchUserAttributes() {
 
 const ProfilePage = () => {
   const {user} = useAuthenticator(context => [context.user]);
-  console.log(user);
+
   const [userAttributes, setUserAttributes] = React.useState(null);
 
   React.useEffect(() => {
@@ -49,8 +49,8 @@ const ProfilePage = () => {
               </div>
             </div>
           <Separator className="w-[95%] mx-auto " />
-            <section className="grid grid-cols-3 ">
-              <div className="col-start-2 col-end-3 flex flex-col items-left pt-8">
+            <section className="grid grid-cols-3">
+              <div className="col-start-2 col-end-3 flex flex-col justify-center pt-8">
                 <p className="text-2xl font-bold">Account Settings</p>
                 <div className="text-sm w-fit mt-4">
                   <p>
@@ -62,6 +62,7 @@ const ProfilePage = () => {
                   <h3 className="text-xl font-bold pb-2">Edit Profile</h3>
                   <EditProfileForm user={user} attributes={userAttributes}/>
                 </div>
+                <Separator className="mt-12"/>
                 <div className="pt-16">
                   <h2 className="text-xl font-bold pb-2">Edit Password</h2>
                   <ChangePasswordForm />

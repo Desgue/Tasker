@@ -40,9 +40,12 @@ const ProfileDropdown = () => {
       <DropdownMenuContent className="w-56 mr-2">
         <DropdownMenuGroup className="h-16 bg-neutral-50">
         <div className='h-full'>
-
-        <DropdownMenuLabel className="text-lg   "> Welcome, <span className='text-[#6200EE]'>{user.username} </span></DropdownMenuLabel>
-        <DropdownMenuLabel className="text-base "> {userAttributes.email}</DropdownMenuLabel>
+          <DropdownMenuLabel className="text-lg   "> 
+            Welcome, <span className='text-[#6200EE]'>{user.username} </span>
+          </DropdownMenuLabel>
+          <DropdownMenuLabel className="text-base "> 
+          {userAttributes.email}
+          </DropdownMenuLabel>
         </div>
       
         </DropdownMenuGroup>
@@ -62,7 +65,7 @@ const ProfileDropdown = () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <button onClick={signOut} className='  w-full text-left'>
-          Log out
+            Sign Out
         </button>
         </DropdownMenuItem>
       </DropdownMenuContent>

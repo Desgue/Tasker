@@ -44,7 +44,7 @@ const EditProfileForm = ({className, user, attributes}) => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="username" {...field} />
+                <Input placeholder="username" {...field} className="w-1/3"/>
               </FormControl>
               <FormDescription>
                 This is your public display name.
@@ -60,7 +60,7 @@ const EditProfileForm = ({className, user, attributes}) => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="youremail@provider.com" {...field} />
+                <Input placeholder="youremail@provider.com" {...field} className="w-1/3"/>
               </FormControl>
               <FormDescription>
                 This is your email address.

@@ -22,7 +22,7 @@ import { TokenContext } from '../../App';
 export const newProjectCtx = React.createContext() 
 const ProjectsPage =  () => {  
   const user = useAuthenticator(context => [context.user]);
-  console.log(user)
+
 
   return (
                   <>
