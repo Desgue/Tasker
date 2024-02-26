@@ -1,7 +1,4 @@
 import React from 'react'
-import {getTasks} from '../../service/api'
-import {TokenContext} from '../../App'
-import { Navigate, redirect, useParams } from 'react-router-dom'
 import DataTable  from '../../components/DataTable'
 import columns from './columns'
 import {
@@ -14,46 +11,18 @@ import {
 } from "@/components/ui/dialog"
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-
 import {Button} from "@/components/ui/button"
 import NewTaskForm from './NewTaskForm'
-import { useAuthenticator, Authenticator } from '@aws-amplify/ui-react';
+import {Authenticator } from '@aws-amplify/ui-react';
 
 
 const TasksPage = () => {
-  const tokens = React.useContext(TokenContext)
-  const [tasks, setTasks] = React.useState([])
-  const projectId = useParams().projectId
-  const user = useAuthenticator(context => [context.user]);
-
-
-  React.useEffect(() => {
-    document.title = 'Tasks'
-    getTasks(projectId, tokens)
-    .then((tasks) => {
-      tasks.map((task) => {
-        task.createdAt = new Date(task.createdAt).toLocaleString()
-      }
-      )
-      setTasks(tasks)
-    })
-    .catch((err) => {
-      console.log(err)
-    })  
-  }
-  , [])
-
-  
-
-   if (tasks && user.user) { return (
+    return (
     <Authenticator>
 
     <main className="pt-24">
@@ -67,13 +36,13 @@ const TasksPage = () => {
         <NewTaskDialog/>
         </div>
 
-        <DataTable data={tasks} columns={columns} filterBy="description"/>
+        <DataTable  columns={columns} filterBy="description"/>
       </div>
     </main>
     </Authenticator>
   )
   } 
-}
+
 
 const NewTaskDialog = () => {
   const [open, setOpen] = React.useState()

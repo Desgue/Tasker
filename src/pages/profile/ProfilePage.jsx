@@ -22,7 +22,7 @@ async function handleFetchUserAttributes() {
 const ProfilePage = () => {
   const [userAttributes, setUserAttributes] = React.useState(null);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     handleFetchUserAttributes()
     .then((attributes) => {
       setUserAttributes(attributes);
@@ -31,22 +31,23 @@ const ProfilePage = () => {
       setUserAttributes(null);
       console.log(error);
     })
-    redirect('/login')
+    redirect(0)
   }
   , [])
 
 
-  if (userAttributes) return (
+ return (
       <Authenticator >
         {({  user }) => (
+
       <>
-      
+        {console.log(user)}      
         <div className=' pl-[40px] pr-16 pt-[26px] pb-[26px] mb-6'>
           <div className='flex flex-row w-full'>
             <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="avatar" className="mt-4 mr-2 w-12 h-12 rounded-full " />
             <div className='flex flex-col'>
               <p className='text-xl font-medium pt-4'>{user.username}</p>
-              <p className='text-sm font-medium'>{userAttributes.email}</p>
+              <p className='text-sm font-medium'>{userAttributes ? userAttributes.email : "loading"}</p>
             </div>
           </div>
         </div>
@@ -62,7 +63,7 @@ const ProfilePage = () => {
             <Separator className="mt-4"/>
             <div className="pt-8">
               <h3 className="text-xl font-bold pb-2">Edit Profile</h3>
-              <EditProfileForm user={user} attributes={userAttributes}/>
+              {userAttributes ? <EditProfileForm user={user} attributes={userAttributes}/> : "loading"}
             </div>
             <Separator className="mt-12"/>
             <div className="py-16 ">

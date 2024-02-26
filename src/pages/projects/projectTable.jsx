@@ -33,13 +33,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { getProjects } from "../../service/api"
 import { TokenContext } from "../../App"
+import { set } from "zod"
 
 export  function DataTable({columns}) {
     const tokens = React.useContext(TokenContext)
     const [data, setData] = React.useState([])
+    const [isLoading, setIsLoading] = React.useState(true)
 
     React.useEffect(() => {
-      async function fetchProjects() {
+      const fetchProjects = async() => {
         const projects = await getProjects(tokens)
         projects && projects.forEach((project) => {
           project.createdAt = new Date(project.createdAt).toLocaleString()
@@ -47,7 +49,11 @@ export  function DataTable({columns}) {
         projects && setData(projects)
       }
       fetchProjects()
-    }, [])
+      .then(() => {
+        setIsLoading(false)
+      }
+      )
+    }, [data])
 
     const [sorting, setSorting] = React.useState([])
     const [columnFilters, setColumnFilters] = React.useState([])
@@ -143,7 +149,7 @@ export  function DataTable({columns}) {
                 ) : (
                     <TableRow>
                   <TableCell colSpan={columns.length} className="h-24 text-center">
-                    No results.
+                    {isLoading ?  "Loading projects." : data.length === 0 && "No projects found."}
                   </TableCell>
                 </TableRow>
               )}

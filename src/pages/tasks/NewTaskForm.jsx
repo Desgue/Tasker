@@ -33,7 +33,7 @@ import {useParams} from 'react-router-dom'
 const NewTaskForm = ({setOpen}) => {
     const projectId = useParams().projectId
     const tokens = React.useContext(TokenContext)
-    const Navigate = useNavigate()
+    const navigate = useNavigate()
     const formSchema = z.object({
     title: z.string().min(2, {
         message: 'Title must be at least 2 characters long'
@@ -62,7 +62,7 @@ const NewTaskForm = ({setOpen}) => {
         try {
         const res = await createTask(newTask, projectId, tokens)
         setOpen(false)
-        redirect(0)
+        navigate(0)
 
 
         }

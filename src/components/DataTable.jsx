@@ -31,27 +31,55 @@ import {
   } from "@/components/ui/select"
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
+import { getTasks } from "../service/api"
+import { TokenContext } from "../App"
+import { redirect, useParams } from 'react-router-dom'
 
-const DataTable = ({data, columns, filterBy}) => {
-    const [sorting, setSorting] = React.useState([])
-    const [columnFilters, setColumnFilters] = React.useState([])
-    const table = useReactTable({
-        data,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-        onSortingChange: setSorting,
-        getSortedRowModel: getSortedRowModel(),
-        onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        state: {
-            sorting,
-            columnFilters,
-            
-        },
+const DataTable = ({columns, filterBy}) => {
+  const [data, setData] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState(true)
+  const tokens = React.useContext(TokenContext)
+  const projectId = useParams().projectId
 
-      })
-      return (
+  React.useEffect(() => {
+    document.title = 'Tasks'
+    getTasks(projectId, tokens)
+    .then((tasks) => {
+      tasks && tasks.map((task) => {
+        task.createdAt = new Date(task.createdAt).toLocaleString()
+      }
+      )
+      tasks && setData(tasks)
+      setIsLoading(false)
+      
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  , [])
+
+
+  const [sorting, setSorting] = React.useState([])
+  const [columnFilters, setColumnFilters] = React.useState([])
+  const table = useReactTable({
+      data,
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      onSortingChange: setSorting,
+      getSortedRowModel: getSortedRowModel(),
+      onColumnFiltersChange: setColumnFilters,
+      getFilteredRowModel: getFilteredRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      state: {
+          sorting,
+          columnFilters,
+          
+      },
+    })
+
+
+  return (
     <div >
       <div className="flex items-center justify-between px-2 ">
 
@@ -127,7 +155,7 @@ const DataTable = ({data, columns, filterBy}) => {
                 ) : (
                     <TableRow>
                   <TableCell colSpan={columns.length} className="h-24 text-center">
-                    No results.
+                    {isLoading ?  "Loading tasks." : data.length === 0 && "No task found."}
                   </TableCell>
                 </TableRow>
               )}
