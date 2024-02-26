@@ -33,13 +33,8 @@ const LoggedOut = () => {
             
           </Link>
         </div>
-        <div className='flex lg:hidden'>
-          <ProfileSheet/>
-        </div>
-        <div className='hidden lg:flex'>
-          
-          <ProfileDropdown/>       
-        </div>
+        <ProfileDropdown/>       
+
       </header>
     )
   }

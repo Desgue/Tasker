@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import RootPage from './pages/home/root'
 import ProjectsPage from './pages/projects/ProjectsPage';
-import ProfilePage from './pages/profile/ProfilePage';
 import TasksPage from './pages/tasks/TasksPage';
 import Navbar from './components/layout/navbar';
 import LoginPage from './pages/login/login';
@@ -11,6 +10,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchAuthSession } from "aws-amplify/auth";
 import awsExports from "./aws-exports"
 import { Amplify } from "aws-amplify"
+import SettingsPage from "./pages/settings/SettingsPage";
 Amplify.configure(awsExports);
 
 
@@ -49,7 +49,7 @@ return (
         <Routes>
           <Route path='/projects' element={ <ProjectsPage/> }/>
           <Route path= "projects/:projectId/tasks" element={<TasksPage/> }/>
-          <Route path='/profile' element={ <ProfilePage/> }/>
+          <Route path='/settings' element={ <SettingsPage/> }/>
           <Route path='/login' element={ <LoginPage/>}/>
           <Route path='/' element={<RootPage/>}/>
           <Route path='*' element={<Navigate to="/"/>}/>

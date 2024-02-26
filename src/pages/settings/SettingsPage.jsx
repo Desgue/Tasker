@@ -1,11 +1,11 @@
 import React from 'react'
 import {Authenticator} from '@aws-amplify/ui-react';
-import {Button} from '../../components/ui/button';
 import { Separator } from "@/components/ui/separator"
 import EditProfileForm from './editProfileForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { Navigate, redirect } from 'react-router';
+import { capitalizeFirstLetter } from '../../service/utils';
 
 async function handleFetchUserAttributes() {
   try {
@@ -18,8 +18,7 @@ async function handleFetchUserAttributes() {
 }
 
 
-
-const ProfilePage = () => {
+const SettingsPage = () => {
   const [userAttributes, setUserAttributes] = React.useState(null);
 
   React.useMemo(() => {
@@ -45,7 +44,7 @@ const ProfilePage = () => {
           <div className='flex flex-row w-full'>
             <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="avatar" className="mt-4 mr-2 w-12 h-12 rounded-full " />
             <div className='flex flex-col'>
-              <p className='text-xl font-medium pt-4'>{user.username}</p>
+              <p className='text-2xl pt-4 text-[#6200EE] font-semibold'>{capitalizeFirstLetter(user.username)}</p>
               <p className='text-sm font-medium'>{userAttributes ? userAttributes.email : "loading"}</p>
             </div>
           </div>
@@ -61,7 +60,7 @@ const ProfilePage = () => {
             </div>
             <Separator className="mt-4"/>
             <div className="pt-8">
-              <h3 className="text-xl font-bold pb-2">Edit Profile</h3>
+              <h3 className="text-xl font-bold pb-2">Edit Personal Information</h3>
               {userAttributes ? <EditProfileForm user={user} attributes={userAttributes}/> : "loading"}
             </div>
             <Separator className="mt-12"/>
@@ -83,4 +82,4 @@ const ProfilePage = () => {
   
 
 
-export default ProfilePage
+export default SettingsPage
