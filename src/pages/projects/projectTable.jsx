@@ -55,7 +55,7 @@ export  function DataTable({columns}) {
       .catch((err) => {
         console.log(err)
       })
-    }, [data])
+    }, [])
 
     const [sorting, setSorting] = React.useState([])
     const [columnFilters, setColumnFilters] = React.useState([])
