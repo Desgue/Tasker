@@ -1,7 +1,7 @@
 import React from 'react'
 import {getTasks} from '../../service/api'
 import {TokenContext} from '../../App'
-import { useParams } from 'react-router-dom'
+import { Navigate, redirect, useParams } from 'react-router-dom'
 import DataTable  from '../../components/DataTable'
 import columns from './columns'
 import {
@@ -25,12 +25,14 @@ import {
 
 import {Button} from "@/components/ui/button"
 import NewTaskForm from './NewTaskForm'
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 
 const TasksPage = () => {
   const tokens = React.useContext(TokenContext)
   const [tasks, setTasks] = React.useState([])
   const projectId = useParams().projectId
+  const user = useAuthenticator(context => [context.user]);
 
 
   React.useEffect(() => {
@@ -51,7 +53,7 @@ const TasksPage = () => {
 
   
 
-   if (tasks) { return (
+   if (tasks && user.user) { return (
     <main className="pt-24">
       <h1 className='text-3xl font-bold text-center text-[#6200EE]'></h1>
       <div className='container mx-auto mt-12 py-10  border rounded-lg shadow-xl'>
@@ -68,6 +70,9 @@ const TasksPage = () => {
     </main>
   )
   } 
+return(
+  <Navigate to='/login'/>
+)
 }
 
 const NewTaskDialog = () => {

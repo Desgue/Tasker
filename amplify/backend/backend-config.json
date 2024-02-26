@@ -1,102 +1,47 @@
 {
   "auth": {
-    "tasker": {
+    "tasker88a1ae5c": {
       "customAuth": false,
       "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito",
-      "serviceType": "imported"
+      "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "tasker88a1ae5c"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   },
   "parameters": {
-    "AMPLIFY_auth_tasker_allowUnauthenticatedIdentities": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_authRoleArn": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_authRoleName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_identityPoolId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_identityPoolName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_nativeClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_unauthRoleArn": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_unauthRoleName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_userPoolId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_userPoolName": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
-    "AMPLIFY_auth_tasker_webClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "tasker"
-        }
-      ]
-    },
     "AMPLIFY_auth_taskerfc76411c_nativeClientId": {
       "usedBy": [
         {

@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { TokenContext } from '../../App'
 import { createTask } from '../../service/api'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import { DialogClose, DialogTrigger } from '@/components/ui/dialog'
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
@@ -62,6 +62,7 @@ const NewTaskForm = ({setOpen}) => {
         try {
         const res = await createTask(newTask, projectId, tokens)
         setOpen(false)
+        redirect(0)
 
 
         }

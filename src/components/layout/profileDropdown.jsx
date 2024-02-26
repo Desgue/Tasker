@@ -64,9 +64,11 @@ const ProfileDropdown = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
+          <Link to="/" className='w-full text-left'>
           <button onClick={signOut} className='  w-full text-left'>
             Sign Out
         </button>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -7,7 +7,7 @@ const apiURL = !isProd?  import.meta.env.VITE_REACT_APP_PROD_URL : import.meta.e
 
 export const getProjects = async(tokens) => {
 	const url = apiURL+'/projects'
-	console.log(url)
+
 	const response = await fetch(url, {
 	  next: {
 		revalidate: 60

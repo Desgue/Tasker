@@ -24,15 +24,14 @@ import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import NewProjectForm from './newProjectForm';
 import {columns} from './columns';
 import { DataTable } from './projectTable';
+import { Navigate, redirect } from 'react-router';
 
 
 
 export const newProjectCtx = React.createContext() 
 const ProjectsPage =  () => {  
   const user = useAuthenticator(context => [context.user]);
-
-
-  return (
+  if(user.user) return (
                   <>
                   <section className='min-w-screen min-h-screen w-full h-full flex flex-col pt-12'>
                     <div className='container h-full  text-center mx-auto'>
@@ -52,6 +51,9 @@ const ProjectsPage =  () => {
                     </>
 
                 )  
+  return (
+    <Navigate to='/login'/>
+  )
   }
 export default ProjectsPage
 

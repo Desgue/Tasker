@@ -9,7 +9,7 @@ import {
   } from "@/components/ui/sheet"
   import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
   
 export default function ProfileSheet () {
     const {signOut} = useAuthenticator(context => [context.signOut])
@@ -52,8 +52,8 @@ export default function ProfileSheet () {
                 <Link to="/profile" className='w-full text-center md:text-lg font-medium text-[#6200EE] border-b'>
                     Help
                 </Link> */}
-                <Link to="/profile" className='w-full text-center md:text-lg font-medium text-[#6200EE] border-b'>
-                    <button onClick={signOut} className='  w-full text-center'>
+                <Link to="/" className='w-full text-center md:text-lg font-medium text-[#6200EE] border-b'>
+                    <button onClick={signOut}  className='  w-full text-center'>
                       Sign out
                     </button>
                 </Link>
