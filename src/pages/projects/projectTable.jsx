@@ -51,8 +51,10 @@ export  function DataTable({columns}) {
       fetchProjects()
       .then(() => {
         setIsLoading(false)
-      }
-      )
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }, [data])
 
     const [sorting, setSorting] = React.useState([])

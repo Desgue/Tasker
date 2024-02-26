@@ -40,8 +40,7 @@ const ProfilePage = () => {
       <Authenticator >
         {({  user }) => (
 
-      <>
-        {console.log(user)}      
+      <>    
         <div className=' pl-[40px] pr-16 pt-[26px] pb-[26px] mb-6'>
           <div className='flex flex-row w-full'>
             <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="avatar" className="mt-4 mr-2 w-12 h-12 rounded-full " />
