@@ -25,7 +25,7 @@ import {
 
 import {Button} from "@/components/ui/button"
 import NewTaskForm from './NewTaskForm'
-import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 
 
 const TasksPage = () => {
@@ -54,6 +54,8 @@ const TasksPage = () => {
   
 
    if (tasks && user.user) { return (
+    <Authenticator>
+
     <main className="pt-24">
       <h1 className='text-3xl font-bold text-center text-[#6200EE]'></h1>
       <div className='container mx-auto mt-12 py-10  border rounded-lg shadow-xl'>
@@ -68,11 +70,9 @@ const TasksPage = () => {
         <DataTable data={tasks} columns={columns} filterBy="description"/>
       </div>
     </main>
+    </Authenticator>
   )
   } 
-return(
-  <Navigate to='/login'/>
-)
 }
 
 const NewTaskDialog = () => {

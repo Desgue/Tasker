@@ -10,7 +10,7 @@ const LoginPage =   () => {
         , [])
     return (
     <Authenticator className='pt-48' >
-        {({user}) => (
+        {({}) => (
             <Navigate to='/projects'/>
       )}
     </Authenticator>

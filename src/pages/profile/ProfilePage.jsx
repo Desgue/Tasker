@@ -1,5 +1,5 @@
 import React from 'react'
-import {Authenticator, useAuthenticator} from '@aws-amplify/ui-react';
+import {Authenticator} from '@aws-amplify/ui-react';
 import {Button} from '../../components/ui/button';
 import { Separator } from "@/components/ui/separator"
 import EditProfileForm from './editProfileForm';
@@ -9,9 +9,9 @@ import { Navigate, redirect } from 'react-router';
 
 async function handleFetchUserAttributes() {
   try {
-    const userAttributes = await fetchUserAttributes();
+    const attributes = await fetchUserAttributes();
 
-    return userAttributes;
+    return attributes;
   } catch (error) {
     console.log(error);
   }
@@ -20,8 +20,6 @@ async function handleFetchUserAttributes() {
 
 
 const ProfilePage = () => {
-  const {user} = useAuthenticator(context => [context.user]);
-
   const [userAttributes, setUserAttributes] = React.useState(null);
 
   React.useEffect(() => {
@@ -33,13 +31,16 @@ const ProfilePage = () => {
       setUserAttributes(null);
       console.log(error);
     })
-    /* redirect('/login') */
+    redirect('/login')
   }
   , [])
 
 
-  if (user && userAttributes) return (
+  if (userAttributes) return (
+      <Authenticator >
+        {({  user }) => (
       <>
+      
         <div className=' pl-[40px] pr-16 pt-[26px] pb-[26px] mb-6'>
           <div className='flex flex-row w-full'>
             <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="avatar" className="mt-4 mr-2 w-12 h-12 rounded-full " />
@@ -70,12 +71,13 @@ const ProfilePage = () => {
             </div>
           </div>
         </section>
-      </>
-     )
-     return (
-        console.log(user)
-      )
+        </>
+    )}
+      </Authenticator>
+  );
 }
+
+
      
 
   
