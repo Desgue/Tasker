@@ -38,7 +38,8 @@ const ProjectsPage =  () => {
            <div className='container  bg-white mx-auto mt-12 py-10  border rounded-lg shadow-xl'>
              <div className='flex justify-between'>
                  <h1 className='text-3xl pb-4 font-bold text-left'>Projects</h1>
-                 <NewProjectDialog />
+                  <NewProjectDrawer className= "lg:hidden" />
+                 <NewProjectDialog className="hidden lg:flex" />
              </div>
              <label className='text-sm font-light  text-left'>List of projects</label>
              <DataTable columns={columns} />
@@ -50,14 +51,13 @@ const ProjectsPage =  () => {
   }
 export default ProjectsPage
 
-const NewProjectDialog = () => {
+const NewProjectDialog = ({className}) => {
   const [open, setOpen] = React.useState()
-  const isDesktop = window.innerWidth > 1024;
-  if(isDesktop) {
+
     return (
     <Dialog open={open} >
     <DialogTrigger asChild>
-        <Button className='mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]'>New project</Button>
+        <Button className={` ${className} mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]`}>New project</Button>
     </DialogTrigger>
     <DialogContent className="bg-white">
       <DialogHeader>
@@ -69,17 +69,21 @@ const NewProjectDialog = () => {
     </DialogContent>
 </Dialog>
   )
-    }
-    return (
-      <Drawer open={open} onOpenChange={setOpen}>
+
+}
+
+const NewProjectDrawer = ({className}) => {
+  const [open, setOpen] = React.useState()
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-      <Button className='mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]'>New project</Button>
+      <Button className={` ${className} mb-4 font-semibold  bg-[#6200EE] rounded-[8px] text-white hover:bg-[#5f19c2]`}>New project</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left container pl-8">
           <DrawerTitle>Edit profile</DrawerTitle>
           <DrawerDescription>
-            Make changes to your profile here. Click save when you're done.
+            Add a new project. Click create when you're done.
           </DrawerDescription>
         </DrawerHeader>
         <div className='container pb-4'>
@@ -89,6 +93,5 @@ const NewProjectDialog = () => {
         </div>
       </DrawerContent>
     </Drawer>
-    )
+  )
 }
-

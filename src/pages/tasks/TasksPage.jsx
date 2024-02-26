@@ -33,7 +33,8 @@ const TasksPage = () => {
             <h1 className='text-3xl font-bold text-center text-[#6200EE]'>Tasks</h1>
             <h3 className='pt-2 text-xs md:text-md font-semibold text-left md:text-center text-primary'>Manage your tasks</h3>
           </div>
-        <NewTaskDialog/>
+         <NewTaskDrawer className="lg:hidden"/> 
+        <NewTaskDialog className="hidden lg:flex" />
         </div>
 
         <DataTable  columns={columns} filterBy="description"/>
@@ -44,22 +45,13 @@ const TasksPage = () => {
   } 
 
 
-const NewTaskDialog = () => {
+const NewTaskDialog = ({className}) => {
   const [open, setOpen] = React.useState()
-  const [isDesktop, setIsDesktop] = React.useState(window.innerWidth > 1024);
-  React.useEffect(() => {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 1024) {
-        setIsDesktop(true)
-      } else {
-        setIsDesktop(false)
-      }
-    })
-  }, [])
-  if(isDesktop) {return (
+
+return (
     <Dialog open={open} >
       <DialogTrigger asChild>
-          <Button className='!mb-4 !font-semibold  !bg-[#6200EE] !rounded-[8px] !text-white hover:bg-[#5f19c2]'>New Task</Button>
+          <Button className={` ${className} !mb-4 !font-semibold  !bg-[#6200EE] !rounded-[8px] !text-white hover:bg-[#5f19c2]`}>New Task</Button>
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader>
@@ -69,11 +61,18 @@ const NewTaskDialog = () => {
       </DialogContent>
     </Dialog>
   )
-  }else {
+
+  
+  
+}
+
+const NewTaskDrawer = ({className}) => {
+  const [open, setOpen] = React.useState()
+
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button className='!mb-4 !font-semibold  !bg-[#6200EE] !rounded-[8px] !text-white hover:bg-[#5f19c2]'>New Task</Button>
+        <Button className={` ${className} !mb-4 !font-semibold  !bg-[#6200EE] !rounded-[8px] !text-white hover:bg-[#5f19c2]`}>New Task</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
@@ -85,7 +84,6 @@ const NewTaskDialog = () => {
       </DrawerContent>
     </Drawer>
   )
-  }
 }
 
 export default TasksPage
